@@ -72,3 +72,8 @@ D:\Logiciel\WorkSpaceC#\BazarDeLaHess\BazarDeLaHess\obj\Debug\BazarDeLaHess.cspr
 D:\Logiciel\WorkSpaceC#\BazarDeLaHess\BazarDeLaHess\obj\Debug\BazarDeLaHess.csproj.CopyComplete
 D:\Logiciel\WorkSpaceC#\BazarDeLaHess\BazarDeLaHess\obj\Debug\BazarDeLaHess.dll
 D:\Logiciel\WorkSpaceC#\BazarDeLaHess\BazarDeLaHess\obj\Debug\BazarDeLaHess.pdb
+D:\Logiciel\WorkSpaceC#\BazarDeLaHess\BazarDeLaHess\bin\EntityFramework.dll
+D:\Logiciel\WorkSpaceC#\BazarDeLaHess\BazarDeLaHess\bin\EntityFramework.SqlServer.dll
+D:\Logiciel\WorkSpaceC#\BazarDeLaHess\BazarDeLaHess\bin\EntityFramework.xml
+D:\Logiciel\WorkSpaceC#\BazarDeLaHess\BazarDeLaHess\bin\EntityFramework.SqlServer.xml
+D:\Logiciel\WorkSpaceC#\BazarDeLaHess\BazarDeLaHess\bin\fr\EntityFramework.resources.dll
