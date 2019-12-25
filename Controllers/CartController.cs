@@ -20,7 +20,7 @@ namespace BazarDeLaHess.Controllers
             if (Session["cart"] == null)
             {
                 List<OrderItems> cart = new List<OrderItems>();
-                cart.Add(new OrderItems { item = productModel.find(id), Quantity = 1 });
+                cart.Add(new OrderItems { id_item = id, quantity = 1 });
                 Session["cart"] = cart;
             }
             else
@@ -29,11 +29,11 @@ namespace BazarDeLaHess.Controllers
                 int index = isExist(id);
                 if (index != -1)
                 {
-                    cart[index].Quantity++;
+                    cart[index].quantity++;
                 }
                 else
                 {
-                    cart.Add(new OrderItems { item = productModel.find(id), Quantity = 1 });
+                    cart.Add(new OrderItems { id_item = id, quantity = 1 });
                 }
                 Session["cart"] = cart;
             }
@@ -53,7 +53,7 @@ namespace BazarDeLaHess.Controllers
         {
             List<OrderItems> cart = (List<OrderItems>)Session["cart"];
             for (int i = 0; i < cart.Count; i++)
-                if (cart[i].item.id_item.Equals(id))
+                if (cart[i].id_item.Equals(id))
                     return i;
             return -1;
         }

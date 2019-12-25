@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BazarDeLaHessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="id_address" />
+    </Key>
+    <Property Name="id_address" Type="Int32" Nullable="false" />
+    <Property Name="number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="postcode" Type="Int32" Nullable="false" />
+    <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_User_Address" FromRole="Address" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="id_category" />
+    </Key>
+    <Property Name="id_category" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Category1" Relationship="Self.CategorysLink" FromRole="Category" ToRole="Category1" />
+    <NavigationProperty Name="Category2" Relationship="Self.CategorysLink" FromRole="Category1" ToRole="Category" />
+    <NavigationProperty Name="Item" Relationship="Self.ItemCategory" FromRole="Category" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="id_item" />
+    </Key>
+    <Property Name="id_item" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="available" Type="Boolean" Nullable="false" />
+    <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="picture" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="OrderItems" Relationship="Self.FK_Order_Item" FromRole="Item" ToRole="OrderItems" />
+    <NavigationProperty Name="Category" Relationship="Self.ItemCategory" FromRole="Item" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="id_order" />
+    </Key>
+    <Property Name="id_order" Type="Int32" Nullable="false" />
+    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="delivered" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="OrderItems" Relationship="Self.FK_Order_Order" FromRole="Order" ToRole="OrderItems" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Order_Userid" FromRole="Order" ToRole="User" />
+  </EntityType>
+  <EntityType Name="OrderItems">
+    <Key>
+      <PropertyRef Name="id_order" />
+      <PropertyRef Name="id_item" />
+    </Key>
+    <Property Name="id_order" Type="Int32" Nullable="false" />
+    <Property Name="id_item" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_Order_Item" FromRole="OrderItems" ToRole="Item" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Order" FromRole="OrderItems" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id_user" />
+    </Key>
+    <Property Name="id_user" Type="Int32" Nullable="false" />
+    <Property Name="id_address" Type="Int32" />
+    <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="pass_word" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Address" Relationship="Self.FK_User_Address" FromRole="User" ToRole="Address" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Userid" FromRole="User" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK_User_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="id_address" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="id_address" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="id_item" />
+      </Principal>
+      <Dependent Role="OrderItems">
+        <PropertyRef Name="id_item" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="id_order" />
+      </Principal>
+      <Dependent Role="OrderItems">
+        <PropertyRef Name="id_order" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Userid">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id_user" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="id_user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CategorysLink">
+    <End Role="Category" Type="Self.Category" Multiplicity="*" />
+    <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+  </Association>
+  <Association Name="ItemCategory">
+    <End Role="Category" Type="Self.Category" Multiplicity="*" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="BazarDeLaHessEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Address" EntityType="Self.Address" />
+    <EntitySet Name="Category" EntityType="Self.Category" />
+    <EntitySet Name="Item" EntityType="Self.Item" />
+    <EntitySet Name="Order" EntityType="Self.Order" />
+    <EntitySet Name="OrderItems" EntityType="Self.OrderItems" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_User_Address" Association="Self.FK_User_Address">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Item" Association="Self.FK_Order_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="OrderItems" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Order" Association="Self.FK_Order_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderItems" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Userid" Association="Self.FK_Order_Userid">
+      <End Role="User" EntitySet="User" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="CategorysLink" Association="Self.CategorysLink">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Category1" EntitySet="Category" />
+    </AssociationSet>
+    <AssociationSet Name="ItemCategory" Association="Self.ItemCategory">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -14,11 +14,23 @@ namespace BazarDeLaHess.Models
     
     public partial class Item
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Item()
+        {
+            this.OrderItems = new HashSet<OrderItems>();
+            this.Category = new HashSet<Category>();
+        }
+    
         public int id_item { get; set; }
         public string name { get; set; }
         public string description { get; set; }
         public bool available { get; set; }
-        public float price { get; set; }
+        public double price { get; set; }
         public string picture { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderItems> OrderItems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Category> Category { get; set; }
     }
 }

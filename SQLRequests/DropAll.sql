@@ -1,0 +1,2 @@
+﻿DROP TABLE Item;
+DROP TABLE Category;

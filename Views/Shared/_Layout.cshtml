@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Bazzar de la Hess</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
@@ -17,10 +17,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Bazzar de la Hess", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+
+                <ul class="nav navbar-nav" style="float:right">
+                    <li id="searchBar" runat="server">
+                        <a asp-area="" asp-controller="Home" asp-action="Searche">
+                            <form asp-controller="Home" asp-action="Searche" method="get">
+                                <input type="text" name="search" placeholder="What do you need ?" style="color:black">
+                            </form>
+                        </a>
+                    </li>
+                    <li>@Html.ActionLink(" Search", "Search", "Home", new { @class = "glyphicon glyphicon-search" }) </li>
+                    <li>@Html.ActionLink(" Account", "Index", "Home", new { @class = "glyphicon glyphicon-user" })</li>
+                    <li>@Html.ActionLink(" Basket", "Index", "Home", new { @class = "glyphicon glyphicon-shopping-cart" })</li>
+                    <li><a style="left: -10px; padding-left: 0px"><span class="badge">0</span></a></li>
                 </ul>
             </div>
         </div>
@@ -29,8 +41,9 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
+
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Gau & Gurbuz Application</p>
         </footer>
     </div>
 

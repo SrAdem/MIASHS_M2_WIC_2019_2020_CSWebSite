@@ -1,0 +1,91 @@
+﻿@using BazarDeLaHess.Models
+@model BazarDeLaHess.Models.HomeView
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>Catégories d'article :</p>
+<div class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapse" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Menu</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                @foreach (Category category in Model.Category)
+                {
+                    <li>
+                        <a href="#">
+                            @Html.DisplayNameFor(model => category.title)
+                        </a>
+                    </li>                
+                }
+                </ul>
+        </div>
+    </div>
+</div>
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => Model.Item[0].id_item)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item[0].name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item[0].description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item[0].available)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item[0].price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item[0].picture)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (Item item in Model.Item)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_item)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.available)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.picture)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id_item }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id_item }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.id_item })
+            </td>
+        </tr>
+    }
+
+</table>
