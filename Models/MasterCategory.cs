@@ -12,21 +12,18 @@ namespace BazarDeLaHess.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class MasterCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public MasterCategory()
         {
-            this.MasterCategory = new HashSet<MasterCategory>();
-            this.Item = new HashSet<Item>();
+            this.Category = new HashSet<Category>();
         }
     
-        public int id_category { get; set; }
+        public int id_mastercategory { get; set; }
         public string title { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MasterCategory> MasterCategory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Item> Item { get; set; }
+        public virtual ICollection<Category> Category { get; set; }
     }
 }

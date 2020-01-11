@@ -16,20 +16,20 @@
           <Property Name="postcode" Type="int" Nullable="false" />
           <Property Name="country" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="CategoriesLinks">
+          <Key>
+            <PropertyRef Name="id_mastercategory" />
+            <PropertyRef Name="id_subcategory" />
+          </Key>
+          <Property Name="id_mastercategory" Type="int" Nullable="false" />
+          <Property Name="id_subcategory" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="id_category" />
           </Key>
           <Property Name="id_category" Type="int" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CategorysLink">
-          <Key>
-            <PropertyRef Name="id_category" />
-            <PropertyRef Name="id_subcategory" />
-          </Key>
-          <Property Name="id_category" Type="int" Nullable="false" />
-          <Property Name="id_subcategory" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -50,13 +50,20 @@
           <Property Name="id_item" Type="int" Nullable="false" />
           <Property Name="id_category" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="MasterCategory">
+          <Key>
+            <PropertyRef Name="id_mastercategory" />
+          </Key>
+          <Property Name="id_mastercategory" Type="int" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="id_order" />
           </Key>
           <Property Name="id_order" Type="int" Nullable="false" />
           <Property Name="id_user" Type="int" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
           <Property Name="delivered" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderItems">
@@ -79,18 +86,6 @@
           <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="pass_word" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Category_ID">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="CategorysLink" Type="Self.CategorysLink" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="id_category" />
-            </Principal>
-            <Dependent Role="CategorysLink">
-              <PropertyRef Name="id_category" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Item_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="ItemCategory" Type="Self.ItemCategory" Multiplicity="*" />
@@ -112,6 +107,18 @@
             </Principal>
             <Dependent Role="ItemCategory">
               <PropertyRef Name="id_item" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mastercategory_ID">
+          <End Role="MasterCategory" Type="Self.MasterCategory" Multiplicity="1" />
+          <End Role="CategoriesLinks" Type="Self.CategoriesLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterCategory">
+              <PropertyRef Name="id_mastercategory" />
+            </Principal>
+            <Dependent Role="CategoriesLinks">
+              <PropertyRef Name="id_mastercategory" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -153,12 +160,12 @@
         </Association>
         <Association Name="FK_Subcategory_ID">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="CategorysLink" Type="Self.CategorysLink" Multiplicity="*" />
+          <End Role="CategoriesLinks" Type="Self.CategoriesLinks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="id_category" />
             </Principal>
-            <Dependent Role="CategorysLink">
+            <Dependent Role="CategoriesLinks">
               <PropertyRef Name="id_subcategory" />
             </Dependent>
           </ReferentialConstraint>
@@ -177,17 +184,14 @@
         </Association>
         <EntityContainer Name="BazarDeLaHessModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoriesLinks" EntityType="Self.CategoriesLinks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CategorysLink" EntityType="Self.CategorysLink" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemCategory" EntityType="Self.ItemCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterCategory" EntityType="Self.MasterCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Category_ID" Association="Self.FK_Category_ID">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="CategorysLink" EntitySet="CategorysLink" />
-          </AssociationSet>
           <AssociationSet Name="FK_Item_Category" Association="Self.FK_Item_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="ItemCategory" EntitySet="ItemCategory" />
@@ -195,6 +199,10 @@
           <AssociationSet Name="FK_Item_identifier" Association="Self.FK_Item_identifier">
             <End Role="Item" EntitySet="Item" />
             <End Role="ItemCategory" EntitySet="ItemCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mastercategory_ID" Association="Self.FK_Mastercategory_ID">
+            <End Role="MasterCategory" EntitySet="MasterCategory" />
+            <End Role="CategoriesLinks" EntitySet="CategoriesLinks" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Item" Association="Self.FK_Order_Item">
             <End Role="Item" EntitySet="Item" />
@@ -210,7 +218,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Subcategory_ID" Association="Self.FK_Subcategory_ID">
             <End Role="Category" EntitySet="Category" />
-            <End Role="CategorysLink" EntitySet="CategorysLink" />
+            <End Role="CategoriesLinks" EntitySet="CategoriesLinks" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Address" Association="Self.FK_User_Address">
             <End Role="Address" EntitySet="Address" />
@@ -240,8 +248,7 @@
           </Key>
           <Property Name="id_category" Type="Int32" Nullable="false" />
           <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Category1" Relationship="Self.CategorysLink" FromRole="Category" ToRole="Category1" />
-          <NavigationProperty Name="Category2" Relationship="Self.CategorysLink" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="MasterCategory" Relationship="Self.CategoriesLinks" FromRole="Category" ToRole="MasterCategory" />
           <NavigationProperty Name="Item" Relationship="Self.ItemCategory" FromRole="Category" ToRole="Item" />
         </EntityType>
         <EntityType Name="Item">
@@ -257,13 +264,21 @@
           <NavigationProperty Name="OrderItems" Relationship="Self.FK_Order_Item" FromRole="Item" ToRole="OrderItems" />
           <NavigationProperty Name="Category" Relationship="Self.ItemCategory" FromRole="Item" ToRole="Category" />
         </EntityType>
+        <EntityType Name="MasterCategory">
+          <Key>
+            <PropertyRef Name="id_mastercategory" />
+          </Key>
+          <Property Name="id_mastercategory" Type="Int32" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.CategoriesLinks" FromRole="MasterCategory" ToRole="Category" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="id_order" />
           </Key>
           <Property Name="id_order" Type="Int32" Nullable="false" />
           <Property Name="id_user" Type="Int32" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="delivered" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="OrderItems" Relationship="Self.FK_Order_Order" FromRole="Order" ToRole="OrderItems" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_Userid" FromRole="Order" ToRole="User" />
@@ -340,9 +355,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="CategorysLink">
+        <Association Name="CategoriesLinks">
+          <End Role="MasterCategory" Type="Self.MasterCategory" Multiplicity="*" />
           <End Role="Category" Type="Self.Category" Multiplicity="*" />
-          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
         </Association>
         <Association Name="ItemCategory">
           <End Role="Category" Type="Self.Category" Multiplicity="*" />
@@ -352,6 +367,7 @@
           <EntitySet Name="Address" EntityType="Self.Address" />
           <EntitySet Name="Category" EntityType="Self.Category" />
           <EntitySet Name="Item" EntityType="Self.Item" />
+          <EntitySet Name="MasterCategory" EntityType="Self.MasterCategory" />
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" />
           <EntitySet Name="User" EntityType="Self.User" />
@@ -371,9 +387,9 @@
             <End Role="User" EntitySet="User" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="CategorysLink" Association="Self.CategorysLink">
+          <AssociationSet Name="CategoriesLinks" Association="Self.CategoriesLinks">
+            <End Role="MasterCategory" EntitySet="MasterCategory" />
             <End Role="Category" EntitySet="Category" />
-            <End Role="Category1" EntitySet="Category" />
           </AssociationSet>
           <AssociationSet Name="ItemCategory" Association="Self.ItemCategory">
             <End Role="Category" EntitySet="Category" />
@@ -418,6 +434,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MasterCategory">
+            <EntityTypeMapping TypeName="BazarDeLaHessModel.MasterCategory">
+              <MappingFragment StoreEntitySet="MasterCategory">
+                <ScalarProperty Name="id_mastercategory" ColumnName="id_mastercategory" />
+                <ScalarProperty Name="title" ColumnName="title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="BazarDeLaHessModel.Order">
               <MappingFragment StoreEntitySet="Order">
@@ -449,11 +473,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="CategorysLink" TypeName="BazarDeLaHessModel.CategorysLink" StoreEntitySet="CategorysLink">
-            <EndProperty Name="Category">
-              <ScalarProperty Name="id_category" ColumnName="id_category" />
+          <AssociationSetMapping Name="CategoriesLinks" TypeName="BazarDeLaHessModel.CategoriesLinks" StoreEntitySet="CategoriesLinks">
+            <EndProperty Name="MasterCategory">
+              <ScalarProperty Name="id_mastercategory" ColumnName="id_mastercategory" />
             </EndProperty>
-            <EndProperty Name="Category1">
+            <EndProperty Name="Category">
               <ScalarProperty Name="id_category" ColumnName="id_subcategory" />
             </EndProperty>
           </AssociationSetMapping>

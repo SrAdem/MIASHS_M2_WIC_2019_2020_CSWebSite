@@ -13,18 +13,24 @@ namespace BazarDeLaHess.Controllers
     public class HomeController : Controller
     {
         private BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
-
+        protected void itemDetails(int i, System.EventArgs e)
+        {
+            Response.Redirect("/Home/Details/" + i);
+        }
         // GET: Home
         public async Task<ActionResult> Index(string search)
         {
+            HomeView hv = new HomeView() { Category = _db.MasterCategory.ToList() };
+
             var items = (from m in _db.Item
                          select m);
             if (!String.IsNullOrEmpty(search) && items != null)
             {
                 items = items.Where(s => s.name.Contains(search));
-                return View(await items.ToListAsync());
+                hv.Item = items.ToList();
+                return View(hv);
             }
-            HomeView hv = new HomeView() { Item = _db.Item.ToList(), Category = _db.Category.ToList()};
+            hv.Item = _db.Item.ToList();
             return View(hv);
         }
 
@@ -42,7 +48,7 @@ namespace BazarDeLaHess.Controllers
                 return HttpNotFound();
             }
 
-            return View();
+            return View(item);
         }
 
         // GET: Home/Create

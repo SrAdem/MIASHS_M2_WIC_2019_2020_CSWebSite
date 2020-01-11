@@ -4,63 +4,40 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Item</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.id_item)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.id_item)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.available)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.available)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.picture)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.picture)
-        </dd>
-
-    </dl>
+    <h2 class="text-center">@Html.DisplayFor(model => model.name)</h2>
+    <br/>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-sm-9" style="border:solid;">
+                <hr />
+                <div class="container">
+                    <div class="row justify-content-md-center text-center">
+                        <div class="col-sm-6" style="border-right: 2px solid black" >
+                            @Model.name
+                        </div>
+                        <div class="col-sm-3">
+                            @Model.price €
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div>
+                    @Model.description
+                </div>
+            </div>
+            <div class="col-sm-3 text-center" style="border:solid;">
+                <img src="~/Content/Images/@Model.picture" width="60" />
+                <br />
+                @if (Model.available)
+                {
+                    <a href="@Url.Action("Buy", "Cart", new { id = Model.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                }
+                else
+                {
+                    <span>Le produit est en rupture de stock</span>
+                }
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -14,11 +14,17 @@ CREATE TABLE [dbo].[Category] (
     PRIMARY KEY CLUSTERED ([id_category] ASC)
 );
 
-CREATE TABLE [dbo].[CategorysLink] (
-    [id_category]    INT NOT NULL,
-    [id_subcategory] INT NOT NULL,
-    CONSTRAINT [PK_CategorysLink] PRIMARY KEY CLUSTERED ([id_category] ASC, [id_subcategory] ASC),
-    CONSTRAINT [FK_Category_ID] FOREIGN KEY ([id_category]) REFERENCES [dbo].[Category] ([id_category]),
+CREATE TABLE [dbo].[MasterCategory] (
+    [id_mastercategory] INT          NOT NULL,
+    [title]             VARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id_mastercategory] ASC)
+);
+
+CREATE TABLE [dbo].[CategoriesLinks] (
+    [id_mastercategory] INT NOT NULL,
+    [id_subcategory]    INT NOT NULL,
+    CONSTRAINT [PK_CategoriesLink] PRIMARY KEY CLUSTERED ([id_mastercategory] ASC, [id_subcategory] ASC),
+    CONSTRAINT [FK_Mastercategory_ID] FOREIGN KEY ([id_mastercategory]) REFERENCES [dbo].[MasterCategory] ([id_mastercategory]),
     CONSTRAINT [FK_Subcategory_ID] FOREIGN KEY ([id_subcategory]) REFERENCES [dbo].[Category] ([id_category])
 );
 

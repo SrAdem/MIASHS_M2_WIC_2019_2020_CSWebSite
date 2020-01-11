@@ -4,18 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="36eecebbd1ae4275aa81f42d9b3c071d" Name="Diagram1">
-        <EntityTypeShape EntityType="BazarDeLaHessModel.Address" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BazarDeLaHessModel.Category" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BazarDeLaHessModel.Item" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="BazarDeLaHessModel.Order" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BazarDeLaHessModel.OrderItems" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BazarDeLaHessModel.User" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+      <Diagram DiagramId="e7aaec3243b74d05bcfb02bc447dcdce" Name="Diagram1">
+        <EntityTypeShape EntityType="BazarDeLaHessModel.Address" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazarDeLaHessModel.Category" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazarDeLaHessModel.Item" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazarDeLaHessModel.MasterCategory" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazarDeLaHessModel.Order" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazarDeLaHessModel.OrderItems" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazarDeLaHessModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="BazarDeLaHessModel.FK_User_Address" ManuallyRouted="false" />
         <AssociationConnector Association="BazarDeLaHessModel.FK_Order_Item" ManuallyRouted="false" />
         <AssociationConnector Association="BazarDeLaHessModel.FK_Order_Order" ManuallyRouted="false" />
         <AssociationConnector Association="BazarDeLaHessModel.FK_Order_Userid" ManuallyRouted="false" />
-        <AssociationConnector Association="BazarDeLaHessModel.CategorysLink" ManuallyRouted="false" />
+        <AssociationConnector Association="BazarDeLaHessModel.CategoriesLinks" ManuallyRouted="false" />
         <AssociationConnector Association="BazarDeLaHessModel.ItemCategory" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

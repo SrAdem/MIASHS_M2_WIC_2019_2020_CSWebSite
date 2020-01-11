@@ -106,12 +106,74 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\Images\000001.jpg" />
     <Content Include="Content\Images\000002.jpg" />
     <Content Include="Content\Images\000003.jpg" />
     <Content Include="Content\Images\000004.jpg" />
     <Content Include="Content\Images\000005.jpg" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\Images\1.png" />
+    <Content Include="Content\Images\center-align.png" />
+    <Content Include="Content\Images\check.png" />
+    <Content Include="Content\Images\clear.png" />
+    <Content Include="Content\Images\computer%281%29.png" />
+    <Content Include="Content\Images\computer.png" />
+    <Content Include="Content\Images\connected.png" />
+    <Content Include="Content\Images\contract.png" />
+    <Content Include="Content\Images\cross.png" />
+    <Content Include="Content\Images\crown.png" />
+    <Content Include="Content\Images\crusader.png" />
+    <Content Include="Content\Images\document.png" />
+    <Content Include="Content\Images\end-to-end-encryption.png" />
+    <Content Include="Content\Images\england.png" />
+    <Content Include="Content\Images\explanation.png" />
+    <Content Include="Content\Images\facebook.png" />
+    <Content Include="Content\Images\fight.png" />
+    <Content Include="Content\Images\flame.png" />
+    <Content Include="Content\Images\france.png" />
+    <Content Include="Content\Images\guillotine.png" />
+    <Content Include="Content\Images\hacker.png" />
+    <Content Include="Content\Images\handshake.png" />
+    <Content Include="Content\Images\hidden.png" />
+    <Content Include="Content\Images\instagram.png" />
+    <Content Include="Content\Images\installer-certificat-ssl.png" />
+    <Content Include="Content\Images\interogation.png" />
+    <Content Include="Content\Images\justify.png" />
+    <Content Include="Content\Images\key.png" />
+    <Content Include="Content\Images\limit.png" />
+    <Content Include="Content\Images\mace.png" />
+    <Content Include="Content\Images\mask.png" />
+    <Content Include="Content\Images\no.png" />
+    <Content Include="Content\Images\oldman.png" />
+    <Content Include="Content\Images\plumber%281%29.png" />
+    <Content Include="Content\Images\plumber.png" />
+    <Content Include="Content\Images\pnglot.com-money-icon-png-1149376.png" />
+    <Content Include="Content\Images\quiz.png" />
+    <Content Include="Content\Images\radio-button.png" />
+    <Content Include="Content\Images\rat.png" />
+    <Content Include="Content\Images\rating.png" />
+    <Content Include="Content\Images\robber.png" />
+    <Content Include="Content\Images\security.png" />
+    <Content Include="Content\Images\snapchat.png" />
+    <Content Include="Content\Images\south-america%281%29.png" />
+    <Content Include="Content\Images\south-america.png" />
+    <Content Include="Content\Images\speech-bubble.png" />
+    <Content Include="Content\Images\superheroe%281%29.png" />
+    <Content Include="Content\Images\superheroe%282%29.png" />
+    <Content Include="Content\Images\superheroe%283%29.png" />
+    <Content Include="Content\Images\superheroe.png" />
+    <Content Include="Content\Images\tank.png" />
+    <Content Include="Content\Images\twitter.png" />
+    <Content Include="Content\Images\Vs.png" />
+    <Content Include="Content\Images\whip.png" />
+    <Content Include="Content\Images\witch-hat.png" />
+    <Content Include="Content\Images\witch.png" />
+    <Content Include="Content\Images\wizard.png" />
+    <Content Include="Content\Images\yes-stamp-2.png" />
+    <Content Include="Content\Images\yes.png" />
+    <Content Include="Content\Images\youtube%281%29.png" />
+    <Content Include="Content\Images\youtube.png" />
+    <Content Include="Content\Images\écouter.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Models\BazarDeLaHessModel.Context.tt">
@@ -150,8 +212,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MenuController.cs" />
-    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -178,6 +238,9 @@
     </Compile>
     <Compile Include="Models\HomeView.cs" />
     <Compile Include="Models\Item.cs">
+      <DependentUpon>BazarDeLaHessModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MasterCategory.cs">
       <DependentUpon>BazarDeLaHessModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
@@ -207,7 +270,6 @@
     <Content Include="README.md" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Views\Cart\Index.cshtml" />
@@ -225,6 +287,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\App_LocalResources\" />
     <Folder Include="SQLRequests\" />
   </ItemGroup>
   <ItemGroup>

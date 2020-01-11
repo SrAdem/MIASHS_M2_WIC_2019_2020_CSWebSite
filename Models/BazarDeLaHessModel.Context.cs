@@ -28,6 +28,7 @@ namespace BazarDeLaHess.Models
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Item> Item { get; set; }
+        public virtual DbSet<MasterCategory> MasterCategory { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderItems> OrderItems { get; set; }
         public virtual DbSet<User> User { get; set; }

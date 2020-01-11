@@ -29,10 +29,14 @@
                             </form>
                         </a>
                     </li>
-                    <li>@Html.ActionLink(" Search", "Search", "Home", new { @class = "glyphicon glyphicon-search" }) </li>
+                    <!--<li>@Html.ActionLink(" Search", "Search", "Home", new { @class = "glyphicon glyphicon-search" }) </li>
                     <li>@Html.ActionLink(" Account", "Index", "Home", new { @class = "glyphicon glyphicon-user" })</li>
-                    <li>@Html.ActionLink(" Basket", "Index", "Home", new { @class = "glyphicon glyphicon-shopping-cart" })</li>
-                    <li><a style="left: -10px; padding-left: 0px"><span class="badge">0</span></a></li>
+                    <li>@Html.ActionLink(" Basket", "Index", "Cart", new { @class = "glyphicon glyphicon-shopping-cart" })</li>
+                    <li><a style="left: -10px; padding-left: 0px"><span class="badge">0</span></a></li>-->
+
+                    <li><a href="@Url.Action("Search","Home")"><span class="glyphicon glyphicon-search"></span> Search</a></li>
+                    <li><a href="@Url.Action("Search","Home")"><span class="glyphicon glyphicon-user"></span> Account</a></li>
+                    <li><a href="@Url.Action("Index", "Cart")"><span class="glyphicon glyphicon-shopping-cart"></span> Basket <span class="badge">0</span></a></li>
                 </ul>
             </div>
         </div>
@@ -41,11 +45,17 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Gau & Gurbuz Application</p>
-        </footer>
     </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small blue">
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            © 2018 Copyright: @DateTime.Now.Year - Gau & Gurbuz Application
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
 
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

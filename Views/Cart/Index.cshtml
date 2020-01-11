@@ -1,54 +1,58 @@
-﻿@{
-    Layout = null;
-}
-
+﻿
 @using BazarDeLaHess.Models;
 
-<!DOCTYPE html>
+<div class="container" style="margin-top:50px">
+    <div class="row justify-content-md-center">
+        <div class="col-sm-9">
+            <div style="margin:10px 0px 10px 100px; font-size:25px; font-weight:bold">Mon Panier : </div>
+            <div class="col-sm-12 row justify-content-md-center text-center" style="border:2px solid black">
+                <div class="col-sm-12 row justify-content-md-center" style="padding:10px 0px 20px 0px; margin-left:5px;">
+                    <div class="col-sm-1" style="border-right: 2px solid black">Qte</div>
+                    <div class="col-sm-9" style="border-right: 2px solid black">Items</div>
+                    <div class="col-sm-2">Prix Unit</div>
+                </div>
+                <table class="col-sm-12 row justify-content-md-center" style="margin:0px 0px 10px 5px;padding-bottom:20px">
+                    @if (Session["cart"] != null)
+                    {
+                        foreach (OrderItems item in (List<OrderItems>)Session["cart"])
+                        {
+                            <tr>
+                                <td class="col-sm-1" style="padding-top:10px">@item.quantity</td>
+                                <td class="col-sm-9" style="padding-top:10px" ><a href="@Url.Action("Details", "Home", new { id = item.id_item })">@item.Item.name</a></td>
+                                <td class="col-sm-2" style="padding-top:10px">@item.Item.price €</td>
+                            </tr>
+                        }
+                    }
+                    <tr><td style="padding-bottom:38px"></td></tr>
+                </table>
+            </div>
+        </div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Cart</title>
-</head>
-<body>
 
-    <h3>Cart Page</h3>
-    <table cellpadding="2" cellspacing="2" border="1">
-        <tr>
-            <th>Option</th>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Photo</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Sub Total</th>
-        </tr>
-        @foreach (OrderItems item in (List<OrderItems>)Session["cart"])
-        {
-            <tr>
-                <td><a href="@Url.Action("Remove", "Cart", new { id = item.item.id_item })">Remove</a></td>
-                <td>@item.item.id_item</td>
-                <td>@item.item.name</td>
-                <td><img src="~/Content/Images/@item.item.picture" width="60" /> </td>
-                <td>@item.item.price</td>
-                <td>@item.Quantity</td>
-                <td>@(item.total_price)</td>
-            </tr>
-        }
-        <tr>
-            <td align="right" colspan="6">Sum</td>
-            <td>
-                @{
-                    List<OrderItems> cart = (List<OrderItems>)Session["cart"];
-                    var total = cart.Sum(item => item.total_price);
-                }
-                @total
-            </td>
-        </tr>
-    </table>
-    <br>
-    <a href="@Url.Action("Index", "Product")">Continue Shopping</a>
+        
+        <div class="col-sm-2 text-center" style="border:solid; margin-left:30px;">
+            <div style="margin-top:10px; font-size:25px; font-weight:bold">Total</div>
+            <hr />
+            @if (Session["cart"] != null)
+            {
+                double totalPrice = 0;
+                <table style="margin:40px 0px 20px 0px">
+                    @foreach (OrderItems item in (List<OrderItems>)Session["cart"])
+                    {
+                        <tr>
+                            <td class="col-sm-1" style="padding-top:10px">@(item.quantity * item.Item.price) €</td>
+                            @{totalPrice = totalPrice + (item.quantity * item.Item.price);}
+                        </tr>
+                    }
+                </table>
+                <div><span style="font-size:20px; font-weight:bold">Prix : </span><span style="font-size:20px;">@totalPrice €</span></div>
+            }
 
-</body>
-</html>
+        </div>
+    </div>
+</div>
+
+<br>
+<div class="text-center">
+    <input type="button" value="Commander" onclick="@Url.Action("Index", "Home")">
+</div>

@@ -9,6 +9,7 @@ namespace BazarDeLaHess.Controllers
 {
     public class CartController : Controller
     {
+        private BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
         public ActionResult Index()
         {
             return View();
@@ -16,11 +17,14 @@ namespace BazarDeLaHess.Controllers
 
         public ActionResult Buy(int id)
         {
-            ProductModel productModel = new ProductModel();
+            OrderItems productModel = new OrderItems();
+            var itemToBuy = (from i in _db.Item
+                             where i.id_item == id
+                             select i).First();
             if (Session["cart"] == null)
             {
                 List<OrderItems> cart = new List<OrderItems>();
-                cart.Add(new OrderItems { id_item = id, quantity = 1 });
+                cart.Add(new OrderItems { id_item = id, quantity = 1, Item = itemToBuy });
                 Session["cart"] = cart;
             }
             else
@@ -33,7 +37,7 @@ namespace BazarDeLaHess.Controllers
                 }
                 else
                 {
-                    cart.Add(new OrderItems { id_item = id, quantity = 1 });
+                    cart.Add(new OrderItems { id_item = id, quantity = 1, Item = itemToBuy });
                 }
                 Session["cart"] = cart;
             }
