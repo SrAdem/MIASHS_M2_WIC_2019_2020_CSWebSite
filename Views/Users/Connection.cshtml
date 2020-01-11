@@ -1,0 +1,26 @@
+﻿@using BazarDeLaHess.Models
+
+<link rel="stylesheet" type="text/css" href="~/Content/Formulaire.css">
+
+@ViewBag.error
+<div class="container login-container">
+    <div class="login-form-1 text-center">
+        <h3>Connexion</h3>
+        <form method="post" action="@Url.Action("Login", "Users")">
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="Your Email *" value="" />
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" />
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btnSubmit" value="Login" />
+            </div>
+            <div class="form-group">
+                <a href="@Url.Action("ForgotPassword", "Users")" class="btnForgetPwd">Forget Password?</a><br /><br />
+                <span>Vous n'avez pas encore de compte ?</span>
+                <span><a href="@Url.Action("NewAccount", "Users")" class="btnForgetPwd">Créer votre compte ici </a></span>
+            </div>
+        </form>
+    </div>
+</div>

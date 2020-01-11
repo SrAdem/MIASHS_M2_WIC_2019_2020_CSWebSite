@@ -1,0 +1,56 @@
+﻿
+<link rel="stylesheet" type="text/css" href="~/Content/Formulaire.css">
+
+@ViewBag.error
+<div class="container login-container">
+    <div class="login-form-1 text-center">
+        <h3>Inscription</h3>
+        <form method="post" action="@Url.Action("Register", "Users")">
+            <!-- Surname -->
+            <div class="form-group">
+                <label class="control-label" for="username">Nom</label>
+                <div class="controls">
+                    <input type="text" name="surname" placeholder="" class="form-control">
+                </div>
+            </div>
+            <!-- Name -->
+            <div class="form-group">
+                <label class="control-label" for="username">Prénom</label>
+                <div class="controls">
+                    <input type="text" name="name" placeholder="" class="form-control">
+                </div>
+            </div>
+            <!-- E-mail -->
+            <div class="form-group">
+                <label class="control-label" for="username">E-mail</label>
+                <div class="controls">
+                    <input type="text" name="email" placeholder="xyz@email.com" class="form-control">
+                </div>
+            </div>
+            <!-- Password-->
+            <div class="form-group">
+                <label class="control-label" for="username">Mot de passe</label>
+                <div class="controls">
+                    <input type="password" name="password" placeholder="" class="form-control">
+                    <p class="help-block">Un bon mot de passe = long contenant des chiffres et des lettres et si possibles des caractère spéciaux</p>
+                </div>
+            </div>
+            <!-- Password confirm-->
+            <div class="form-group">
+                <label class="control-label" for="username">Confirmer le Mot de passe</label>
+                <div class="controls">
+                    <input type="password" name="passwordConfirm" placeholder="" class="form-control">
+                    <p class="help-block">Please confirm password</p>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" class="btnSubmit" value="S'inscrire" />
+            </div>
+
+            <div class="form-group">
+                <a href="@Url.Action("Connection", "Users")" class="btnForgetPwd">J'ai déjà mon compte</a>
+            </div>
+        </form>
+    </div>
+</div>
