@@ -3,3 +3,23 @@
 Welcome @Session["username"]
 <br>
 <a href="@Url.Action("Logout", "Users")">Logout</a>
+
+<h3>Account Info</h3>
+<table cellpadding="2" cellspacing="2" border="1">
+    <tr>
+        <td>nom</td>
+        <td>@ViewBag.account.last_name</td>
+    </tr>
+    <tr>
+        <td>prénom</td>
+        <td>@ViewBag.account.first_name</td>
+    </tr>
+    <tr>
+        <td>email</td>
+        <td>@ViewBag.account.email</td>
+    </tr>
+    <tr>
+        <td>mot de passe</td>
+        <td>@ViewBag.account.pass_word</td>
+    </tr>
+</table>

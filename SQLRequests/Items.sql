@@ -4,12 +4,12 @@ VALUES (1, 'Tabouret haut', 'Un tabouret pas mal haut ...', 1, 10, '000001.jpg')
 (3, 'Tabouret moche', 'Un tabouret petit et moche', 1, 50, '000003.jpg'),
 (4, 'poing noir', 'Un coup de poing de couleur noir', 1, 2.5, '1.png'),
 (5, 'Alignement centré', '', 1, 0.75, 'center-align.png'),
-(6, 'check', 'C\'est ok !', 1, 1.02, 'check.png'),
+(6, 'check', 'C est ok !', 1, 1.02, 'check.png'),
 (7, 'nope', 'pas possible', 0, 1.02, 'clear.png'),
 (8, 'ordinateur', 'un ordinateur standard', 1, 350, 'computer.png'),
 (9, 'Ordinateur Hacké', 'Pc qui marche pas tres bien car il a était hack', 1, 300, 'computer(1).png'),
 (10, 'Contrat', 'Un jolie contrat a signer', 1, 10, 'contract.png'),
-(11, 'Compte Facebook', 'Le compte facebook de quelqu\'un que j\'ai hacké', 1, 12, 'facebook.png'),
+(11, 'Compte Facebook', 'Le compte facebook de quelqu un que j ai hacké', 1, 12, 'facebook.png'),
 (12, 'drapeau de la france', 'Oui madame !', 1, 20, 'france.png'),
 (13, 'Service de hack', 'Je vend mes services de hacker', 1, 5000, 'hacker.png'),
 (14, 'une clé', 'Belle clé trouvé près des poubelles', 1, 2.5, 'key.png'),
@@ -39,7 +39,7 @@ VALUES
 (1,'Meuble'),
 (2,'Cuisine');
 
-INSERT INTO CategorysLink (id_mastercategory, id_subcategory)
+INSERT INTO CategoriesLinks (id_mastercategory, id_subcategory)
 VALUES (0,1),
 (0,2),
 (0,3),

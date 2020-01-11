@@ -11,20 +11,38 @@ namespace BazarDeLaHess.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class User
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public Users()
         {
             this.Order = new HashSet<Order>();
         }
     
         public int id_user { get; set; }
         public Nullable<int> id_address { get; set; }
+
+        [MinLength(2)]
+        [MaxLength(50)]
+        [Required]
+        [Display(Name = "Nom")]
         public string first_name { get; set; }
+
+        [MinLength(2)]
+        [MaxLength(50)]
+        [Required]
+        [Display(Name = "Prénom")]
         public string last_name { get; set; }
+
+        [EmailAddress]
+        [Required]
+        [Display(Name = "email")]
         public string email { get; set; }
+
+        [Required]
+        [Display(Name = "Password")]
         public string pass_word { get; set; }
     
         public virtual Address Address { get; set; }

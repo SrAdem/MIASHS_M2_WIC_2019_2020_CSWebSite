@@ -31,16 +31,27 @@ namespace BazarDeLaHess.Controllers
 
         // POST : Connection
         [HttpPost]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(Users userConnection)
         {
-            if (username.Equals("acc1") && password.Equals("123"))
+            Users user = null;
+
+            if (userConnection.email != null && userConnection.pass_word != null)
             {
+                user = (from i in _db.Users
+                        where i.email == userConnection.email
+                        where i.pass_word == userConnection.pass_word
+                        select i).First();
+            }
+
+            if (user != null)
+            {
+                ViewBag.account = user;
                 Session["username"] = "username";
                 return View("myAccount");
             }
             else
             {
-                ViewBag.error = "Invalid Account";
+                ViewBag.notif = "email ou mot de passe incorrecte";
                 return View("Connection");
             }
         }
@@ -57,6 +68,25 @@ namespace BazarDeLaHess.Controllers
         public ActionResult NewAccount()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult NewAccount(Users newUser)
+        {
+            ModelState.Remove("id_user"); // This will remove the key 
+
+            if (ModelState.IsValid)
+            {
+                ViewBag.account = newUser;
+                _db.Users.Add(newUser);
+                //On sauvgarde
+                _db.SaveChanges();
+                return View("MyAccount");
+            }
+            else
+            {
+                return View("NewAccount");
+            }
         }
 
         //Forgot password

@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e7aaec3243b74d05bcfb02bc447dcdce" Name="Diagram1">
+      <Diagram DiagramId="7b2705f7bf924fa9bc8aac3ea0186a96" Name="Diagram1">
         <EntityTypeShape EntityType="BazarDeLaHessModel.Address" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="BazarDeLaHessModel.Category" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BazarDeLaHessModel.Item" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="BazarDeLaHessModel.MasterCategory" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="BazarDeLaHessModel.Order" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="BazarDeLaHessModel.OrderItems" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BazarDeLaHessModel.User" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazarDeLaHessModel.Users" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="BazarDeLaHessModel.FK_User_Address" ManuallyRouted="false" />
         <AssociationConnector Association="BazarDeLaHessModel.FK_Order_Item" ManuallyRouted="false" />
         <AssociationConnector Association="BazarDeLaHessModel.FK_Order_Order" ManuallyRouted="false" />

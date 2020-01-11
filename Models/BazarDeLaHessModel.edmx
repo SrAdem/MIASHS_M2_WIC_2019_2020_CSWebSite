@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BazarDeLaHessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BazarDeLaHessModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="id_address" />
@@ -35,7 +35,7 @@
           <Key>
             <PropertyRef Name="id_item" />
           </Key>
-          <Property Name="id_item" Type="int" Nullable="false" />
+          <Property Name="id_item" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="text" />
           <Property Name="available" Type="bit" Nullable="false" />
@@ -63,7 +63,7 @@
           </Key>
           <Property Name="id_order" Type="int" Nullable="false" />
           <Property Name="id_user" Type="int" Nullable="false" />
-          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
           <Property Name="delivered" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderItems">
@@ -75,11 +75,11 @@
           <Property Name="id_item" Type="int" Nullable="false" />
           <Property Name="quantity" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="id_user" />
           </Key>
-          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_address" Type="int" />
           <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
@@ -147,10 +147,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Userid">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="id_user" />
             </Principal>
             <Dependent Role="Order">
@@ -172,12 +172,12 @@
         </Association>
         <Association Name="FK_User_Address">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Address">
               <PropertyRef Name="id_address" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="Users">
               <PropertyRef Name="id_address" />
             </Dependent>
           </ReferentialConstraint>
@@ -191,7 +191,7 @@
           <EntitySet Name="MasterCategory" EntityType="Self.MasterCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Item_Category" Association="Self.FK_Item_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="ItemCategory" EntitySet="ItemCategory" />
@@ -213,7 +213,7 @@
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Userid" Association="Self.FK_Order_Userid">
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="FK_Subcategory_ID" Association="Self.FK_Subcategory_ID">
@@ -222,11 +222,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_User_Address" Association="Self.FK_User_Address">
             <End Role="Address" EntitySet="Address" />
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BazarDeLaHessModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -240,7 +239,7 @@
           <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="postcode" Type="Int32" Nullable="false" />
           <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Address" FromRole="Address" ToRole="User" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_Address" FromRole="Address" ToRole="Users" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -278,10 +277,10 @@
           </Key>
           <Property Name="id_order" Type="Int32" Nullable="false" />
           <Property Name="id_user" Type="Int32" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="delivered" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="OrderItems" Relationship="Self.FK_Order_Order" FromRole="Order" ToRole="OrderItems" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Order_Userid" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Order_Userid" FromRole="Order" ToRole="Users" />
         </EntityType>
         <EntityType Name="OrderItems">
           <Key>
@@ -294,7 +293,7 @@
           <NavigationProperty Name="Item" Relationship="Self.FK_Order_Item" FromRole="OrderItems" ToRole="Item" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Order" FromRole="OrderItems" ToRole="Order" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="id_user" />
           </Key>
@@ -304,17 +303,17 @@
           <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="pass_word" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Address" Relationship="Self.FK_User_Address" FromRole="User" ToRole="Address" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Userid" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_User_Address" FromRole="Users" ToRole="Address" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Order_Userid" FromRole="Users" ToRole="Order" />
         </EntityType>
         <Association Name="FK_User_Address">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Address">
               <PropertyRef Name="id_address" />
             </Principal>
-            <Dependent Role="User">
+            <Dependent Role="Users">
               <PropertyRef Name="id_address" />
             </Dependent>
           </ReferentialConstraint>
@@ -344,10 +343,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Userid">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="id_user" />
             </Principal>
             <Dependent Role="Order">
@@ -370,10 +369,10 @@
           <EntitySet Name="MasterCategory" EntityType="Self.MasterCategory" />
           <EntitySet Name="Order" EntityType="Self.Order" />
           <EntitySet Name="OrderItems" EntityType="Self.OrderItems" />
-          <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
           <AssociationSet Name="FK_User_Address" Association="Self.FK_User_Address">
             <End Role="Address" EntitySet="Address" />
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Item" Association="Self.FK_Order_Item">
             <End Role="Item" EntitySet="Item" />
@@ -384,7 +383,7 @@
             <End Role="OrderItems" EntitySet="OrderItems" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Userid" Association="Self.FK_Order_Userid">
-            <End Role="User" EntitySet="User" />
+            <End Role="Users" EntitySet="Users" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
           <AssociationSet Name="CategoriesLinks" Association="Self.CategoriesLinks">
@@ -461,9 +460,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="BazarDeLaHessModel.User">
-              <MappingFragment StoreEntitySet="User">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BazarDeLaHessModel.Users">
+              <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="id_user" ColumnName="id_user" />
                 <ScalarProperty Name="id_address" ColumnName="id_address" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />

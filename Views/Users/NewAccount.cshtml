@@ -1,37 +1,45 @@
-﻿
+﻿@model BazarDeLaHess.Models.Users
 <link rel="stylesheet" type="text/css" href="~/Content/Formulaire.css">
 
 @ViewBag.error
+
+
 <div class="container login-container">
     <div class="login-form-1 text-center">
         <h3>Inscription</h3>
-        <form method="post" action="@Url.Action("Register", "Users")">
+
+        @using (Html.BeginForm("NewAccount", "Users", FormMethod.Post))
+        {
             <!-- Surname -->
             <div class="form-group">
                 <label class="control-label" for="username">Nom</label>
                 <div class="controls">
-                    <input type="text" name="surname" placeholder="" class="form-control">
+                    @Html.TextBoxFor(model => model.last_name, new { @class = "form-control" })<br />
+                    @Html.ValidationMessageFor(model => model.last_name)
                 </div>
             </div>
             <!-- Name -->
             <div class="form-group">
                 <label class="control-label" for="username">Prénom</label>
                 <div class="controls">
-                    <input type="text" name="name" placeholder="" class="form-control">
+                    @Html.TextBoxFor(model => model.first_name, new { @class = "form-control" })<br />
+                    @Html.ValidationMessageFor(model => model.first_name)
                 </div>
             </div>
             <!-- E-mail -->
             <div class="form-group">
                 <label class="control-label" for="username">E-mail</label>
                 <div class="controls">
-                    <input type="text" name="email" placeholder="xyz@email.com" class="form-control">
+                    @Html.TextBoxFor(model => model.email, new { @class = "form-control" })<br />
+                    @Html.ValidationMessageFor(model => model.email)
                 </div>
             </div>
             <!-- Password-->
             <div class="form-group">
                 <label class="control-label" for="username">Mot de passe</label>
                 <div class="controls">
-                    <input type="password" name="password" placeholder="" class="form-control">
+                    @Html.PasswordFor(model => model.pass_word, new { @class = "form-control" })<br />
+                    @Html.ValidationMessageFor(model => model.pass_word)
                     <p class="help-block">Un bon mot de passe = long contenant des chiffres et des lettres et si possibles des caractère spéciaux</p>
                 </div>
             </div>
@@ -43,7 +51,7 @@
                     <p class="help-block">Please confirm password</p>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <input type="submit" class="btnSubmit" value="S'inscrire" />
             </div>
@@ -51,6 +59,6 @@
             <div class="form-group">
                 <a href="@Url.Action("Connection", "Users")" class="btnForgetPwd">J'ai déjà mon compte</a>
             </div>
-        </form>
+        }
     </div>
 </div>

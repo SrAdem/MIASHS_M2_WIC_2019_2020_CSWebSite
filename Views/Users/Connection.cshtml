@@ -1,17 +1,21 @@
-﻿@using BazarDeLaHess.Models
+﻿@model BazarDeLaHess.Models.Users
 
 <link rel="stylesheet" type="text/css" href="~/Content/Formulaire.css">
 
-@ViewBag.error
 <div class="container login-container">
     <div class="login-form-1 text-center">
+        <span class="help-block">@ViewBag.notif</span>
         <h3>Connexion</h3>
-        <form method="post" action="@Url.Action("Login", "Users")">
+
+        @using (Html.BeginForm("Login", "Users", FormMethod.Post))
+        {
             <div class="form-group">
-                <input type="text" name="username" class="form-control" placeholder="Your Email *" value="" />
+                @Html.TextBoxFor(model => model.email, new { @class = "form-control", @placeholder = "Your Email *" })<br />
+                @Html.ValidationMessageFor(model => model.email)
             </div>
             <div class="form-group">
-                <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" />
+                @Html.PasswordFor(model => model.pass_word, new { @class = "form-control", @placeholder = "Your Password *" })<br />
+                @Html.ValidationMessageFor(model => model.pass_word)
             </div>
             <div class="form-group">
                 <input type="submit" class="btnSubmit" value="Login" />
@@ -21,6 +25,6 @@
                 <span>Vous n'avez pas encore de compte ?</span>
                 <span><a href="@Url.Action("NewAccount", "Users")" class="btnForgetPwd">Créer votre compte ici </a></span>
             </div>
-        </form>
+        }
     </div>
 </div>

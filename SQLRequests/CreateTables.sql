@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Item] (
-    [id_item]     INT          NOT NULL,
+    [id_item]     INT          IDENTITY (1, 1) NOT NULL,
     [name]        VARCHAR (50) NOT NULL,
     [description] TEXT         NULL,
     [available]   BIT          DEFAULT ((0)) NOT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE [dbo].[Address] (
     PRIMARY KEY CLUSTERED ([id_address] ASC)
 );
 
-CREATE TABLE [dbo].[User] (
-    [id_user]    INT          NOT NULL,
+CREATE TABLE [dbo].[Users] (
+    [id_user]    INT          IDENTITY (1, 1) NOT NULL,
     [id_address] INT          NULL,
     [first_name] VARCHAR (50) NOT NULL,
     [last_name]  VARCHAR (50) NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE [dbo].[Order] (
     [date]      DATE NOT NULL,
     [delivered] BIT  NOT NULL,
     PRIMARY KEY CLUSTERED ([id_order] ASC),
-    CONSTRAINT [FK_Order_Userid] FOREIGN KEY ([id_user]) REFERENCES [dbo].[User] ([id_user])
+    CONSTRAINT [FK_Order_Userid] FOREIGN KEY ([id_user]) REFERENCES [dbo].[Users] ([id_user])
 );
 
 CREATE TABLE [dbo].[OrderItems] (

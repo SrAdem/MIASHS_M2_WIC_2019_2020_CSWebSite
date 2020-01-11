@@ -31,6 +31,6 @@ namespace BazarDeLaHess.Models
         public virtual DbSet<MasterCategory> MasterCategory { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderItems> OrderItems { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }
