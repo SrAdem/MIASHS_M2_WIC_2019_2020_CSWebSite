@@ -13,7 +13,7 @@ namespace BazarDeLaHess.Controllers
 {
     public class UsersController : Controller
     {
-        private BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
+        private readonly BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
 
         private const string MatchEmailPattern =
             @"^(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@"
@@ -24,8 +24,18 @@ namespace BazarDeLaHess.Controllers
         + @"([a-zA-Z0-9]+[\w-]+\.)+[a-zA-Z]{1}[a-zA-Z0-9-]{1,23})$";
 
         // GET: Users
-        public ActionResult Connection()
+        public ActionResult Connection(int? itemID)
         {
+            if(Session["userid"] != null)
+            {
+                int id = (int)Session["userid"];
+                Users user = (from i in _db.Users
+                              where i.id_user == id
+                              select i).First();
+                ViewBag.account = user;
+                return View("myAccount");
+            }
+            ViewBag.itemID = itemID;
             return View();
         }
 
@@ -34,7 +44,6 @@ namespace BazarDeLaHess.Controllers
         public ActionResult Login(Users userConnection)
         {
             Users user = null;
-
             if (userConnection.email != null && userConnection.pass_word != null)
             {
                 user = (from i in _db.Users
@@ -45,12 +54,23 @@ namespace BazarDeLaHess.Controllers
 
             if (user != null)
             {
-                ViewBag.account = user;
-                Session["username"] = "username";
-                return View("myAccount");
+                Session["userid"] = user.id_user;
+                Session["userName"] = user.first_name;
+                Session["userSurname"] = user.last_name;
+                if( Request.Form["itemID"] != null)
+                {
+                    string itemId = Request.Form["itemID"];
+                    return RedirectToAction("Buy","Cart", new { id = Int32.Parse(itemId) } );
+                }
+                else
+                {
+                    ViewBag.account = user;
+                    return View("myAccount");
+                }
             }
             else
             {
+                ViewBag.itemID = Request.Form["itemID"];
                 ViewBag.notif = "email ou mot de passe incorrecte";
                 return View("Connection");
             }
@@ -60,7 +80,9 @@ namespace BazarDeLaHess.Controllers
         [HttpGet]
         public ActionResult Logout()
         {
-            Session.Remove("username");
+            Session.Remove("userName");
+            Session.Remove("userSurname");
+            Session.Remove("userid");
             return RedirectToAction("Connection");
         }
 

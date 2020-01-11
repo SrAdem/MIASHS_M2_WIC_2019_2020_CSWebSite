@@ -71,7 +71,14 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.id_item }) |
                 @Html.ActionLink("Details", "Details", new { id = item.id_item }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.id_item }) |
-                <a href="@Url.Action("Buy", "Cart", new { id = item.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                @if (Session["userName"] != null)
+                {
+                    <a href="@Url.Action("Buy", "Cart", new { id = item.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Connection", "Users", new { itemID = item.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                }
             </td>
         </tr>
     }

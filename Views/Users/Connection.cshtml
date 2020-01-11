@@ -17,6 +17,8 @@
                 @Html.PasswordFor(model => model.pass_word, new { @class = "form-control", @placeholder = "Your Password *" })<br />
                 @Html.ValidationMessageFor(model => model.pass_word)
             </div>
+            @Html.Hidden("itemID", (object)ViewBag.itemID)
+            //<input type="hidden" value="@ViewBag.itemID" name="itemID"/>
             <div class="form-group">
                 <input type="submit" class="btnSubmit" value="Login" />
             </div>

@@ -12,7 +12,7 @@ namespace BazarDeLaHess.Controllers
 {
     public class HomeController : Controller
     {
-        private BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
+        private readonly BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
         protected void itemDetails(int i, System.EventArgs e)
         {
             Response.Redirect("/Home/Details/" + i);

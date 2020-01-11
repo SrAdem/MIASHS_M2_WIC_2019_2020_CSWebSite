@@ -9,7 +9,7 @@ namespace BazarDeLaHess.Controllers
 {
     public class CartController : Controller
     {
-        private BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
+        private readonly BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
         public ActionResult Index()
         {
             return View();
