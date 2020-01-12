@@ -29,9 +29,9 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Html.DisplayFor(model => category.title)<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    @foreach(Category subcategory in category.Category)
+                                    @foreach (Category subcategory in category.Category)
                                     {
-                                        <li><a href="#">@subcategory.title</a></li>
+                                        <li><a href="@Url.Action("Category", "Home", new { subcategory = subcategory.id_category })">@subcategory.title</a></li>
                                     }
                                 </ul>
                             </li>

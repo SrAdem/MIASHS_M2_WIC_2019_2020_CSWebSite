@@ -21,17 +21,36 @@ namespace BazarDeLaHess.Controllers
         public async Task<ActionResult> Index(string search)
         {
             HomeView hv = new HomeView() { Category = _db.MasterCategory.ToList() };
-
-            var items = (from m in _db.Item
-                         select m);
-            if (!String.IsNullOrEmpty(search) && items != null)
+            
+            if (!String.IsNullOrEmpty(search))
             {
-                items = items.Where(s => s.name.Contains(search));
-                hv.Item = items.ToList();
-                return View(hv);
+                var items = (from m in _db.Item where m.name.Contains(search)
+                             select m);
+                if(items != null)
+                {
+                    hv.Item = items.ToList();
+                    return View(hv);
+                }
             }
             hv.Item = _db.Item.ToList();
             return View(hv);
+        }
+
+        public ActionResult Category(int? subcategory)
+        {
+            HomeView hv = new HomeView() { Category = _db.MasterCategory.ToList() };
+
+            if(subcategory != null)
+            {
+                Category category = (from m in _db.Category where m.id_category == subcategory select m).First();
+                if(category != null)
+                {
+                    hv.Item = category.Item.ToList();
+                    return View("Index", hv);
+                }
+            }
+            hv.Item = _db.Item.ToList();
+            return View("Index", hv);
         }
 
         /****************************** Details / Creat / Edit / Remove ******************************/
