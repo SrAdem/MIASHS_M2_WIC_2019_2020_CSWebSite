@@ -38,7 +38,7 @@ CREATE TABLE [dbo].[ItemCategory] (
 
 
 CREATE TABLE [dbo].[Address] (
-    [id_address] INT          NOT NULL,
+    [id_address] INT          IDENTITY (1, 1) NOT NULL,
     [number]     VARCHAR (10) NOT NULL,
     [title]      VARCHAR (50) NOT NULL,
     [city]       VARCHAR (50) NOT NULL,

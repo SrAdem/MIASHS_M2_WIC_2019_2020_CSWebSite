@@ -44,7 +44,7 @@ namespace BazarDeLaHess.Models
         [Required]
         [Display(Name = "Password")]
         public string pass_word { get; set; }
-    
+
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }

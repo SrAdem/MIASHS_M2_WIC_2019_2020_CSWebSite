@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="id_address" />
           </Key>
-          <Property Name="id_address" Type="int" Nullable="false" />
+          <Property Name="id_address" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="number" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />

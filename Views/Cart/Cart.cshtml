@@ -97,8 +97,8 @@
 
 <br>
 <div class="text-center">
-    @using (Html.BeginForm("ToOrder", "Cart", FormMethod.Get, new { @style = "display:inline-block;" }))
+    @using (Html.BeginForm("Order", "Cart", FormMethod.Get, new { @style = "display:inline-block;" }))
     {
-        <input type="submit" value="Commander" onclick="@Url.Action("ToOrder", "Cart")">
+        <input type="submit" value="Commander">
     }
 </div>

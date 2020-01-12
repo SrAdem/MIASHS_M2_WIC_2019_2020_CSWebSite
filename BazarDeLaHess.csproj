@@ -251,7 +251,6 @@
     <Compile Include="Models\OrderItems.cs">
       <DependentUpon>BazarDeLaHessModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\Users.cs">
       <DependentUpon>BazarDeLaHessModel.tt</DependentUpon>
     </Compile>
@@ -285,6 +284,7 @@
     <Content Include="Views\Users\NewAccount.cshtml" />
     <Content Include="Views\Users\ForgotPassword.cshtml" />
     <Content Include="Views\Cart\Order.cshtml" />
+    <Content Include="Views\Cart\Pay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

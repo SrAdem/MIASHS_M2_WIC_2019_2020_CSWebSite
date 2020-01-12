@@ -43,36 +43,43 @@ namespace BazarDeLaHess.Controllers
         [HttpPost]
         public ActionResult Login(Users userConnection)
         {
-            Users user = null;
+            //Si l'utilisateur à compléter les champs requis
             if (userConnection.email != null && userConnection.pass_word != null)
             {
-                user = (from i in _db.Users
+                List<Users> users = (from i in _db.Users
                         where i.email == userConnection.email
                         where i.pass_word == userConnection.pass_word
-                        select i).First();
-            }
+                        select i).ToList();
 
-            if (user != null) // Si l'utilisateur existe
-            {
-                Session["userid"] = user.id_user;
-                Session["userName"] = user.first_name;
-                Session["userSurname"] = user.last_name;
-                string itemId = Request.Form["itemID"];
-                if (itemId != null && itemId != "-1" && itemId != "" )//Si on se connecte suite à l'ajout au panier d'un article
+                if (users.Count() == 1) // Si l'utilisateur existe
                 {
-                    return RedirectToAction("Buy","Cart", new { id = Int32.Parse(itemId) } );
+                    Users user = users.First();
+                    Session["userid"] = user.id_user;
+                    Session["userName"] = user.first_name;
+                    Session["userSurname"] = user.last_name;
+                    string itemId = Request.Form["itemID"];
+                    if (itemId != null && itemId != "-1" && itemId != "")//Si on se connecte suite à l'ajout au panier d'un article
+                    {
+                        return RedirectToAction("Buy", "Cart", new { id = Int32.Parse(itemId) });
+                    }
+                    else if (itemId == "-1")//Si on se connecte via le bouton panier
+                    {
+                        return RedirectToAction("Cart", "Cart");
+                    }
+                    else//Si on se connecte via le bouton mon compte 
+                    {
+                        ViewBag.account = user;
+                        return View("myAccount");
+                    }
                 }
-                else if (itemId == "-1")//Si on se connecte via le bouton panier
+                else //S'il n'existe pas 
                 {
-                    return RedirectToAction("Cart", "Cart");
-                }
-                else//Si on se connecte via le bouton mon compte 
-                {
-                    ViewBag.account = user;
-                    return View("myAccount");
+                    ViewBag.itemID = Request.Form["itemID"];
+                    ViewBag.notif = "email ou mot de passe incorrecte";
+                    return View("Connection");
                 }
             }
-            else //S'il n'existe pas 
+            else //S'il n'a pas complété les champs requis
             {
                 ViewBag.itemID = Request.Form["itemID"];
                 ViewBag.notif = "email ou mot de passe incorrecte";

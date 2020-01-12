@@ -11,7 +11,8 @@ namespace BazarDeLaHess.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,12 +22,33 @@ namespace BazarDeLaHess.Models
         }
     
         public int id_address { get; set; }
+
+        [MinLength(2)]
+        [MaxLength(50)]
+        [Required]
+        [Display(Name = "Numéro")]
         public string number { get; set; }
+
+        [MinLength(2)]
+        [MaxLength(50)]
+        [Required]
+        [Display(Name = "Libellé")]
         public string title { get; set; }
+
+        [MinLength(2)]
+        [MaxLength(50)]
+        [Required]
+        [Display(Name = "Ville")]
         public string city { get; set; }
+
+        [Required]
+        [Display(Name = "Code Postal")]
         public int postcode { get; set; }
+
+        [Required]
+        [Display(Name = "Pays")]
         public string country { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Users> Users { get; set; }
     }
