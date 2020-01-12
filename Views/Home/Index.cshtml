@@ -18,7 +18,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Menu</a>
+                    @Html.ActionLink("Menu", "Index", "Home", new { @class = "navbar-brand" })
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -71,13 +71,20 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.id_item }) |
                 @Html.ActionLink("Details", "Details", new { id = item.id_item }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.id_item }) |
-                @if (Session["userName"] != null)
+                @if (item.available)
                 {
-                    <a href="@Url.Action("Buy", "Cart", new { id = item.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                    if (Session["userName"] != null)
+                    {
+                        <a href="@Url.Action("Buy", "Cart", new { id = item.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Connection", "Users", new { itemID = item.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                    }
                 }
                 else
                 {
-                    <a href="@Url.Action("Connection", "Users", new { itemID = item.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                    <span style="color:red">Ce produit est en rupture de stock</span>
                 }
             </td>
         </tr>

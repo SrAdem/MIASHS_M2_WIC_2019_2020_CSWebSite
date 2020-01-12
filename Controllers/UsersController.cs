@@ -52,23 +52,27 @@ namespace BazarDeLaHess.Controllers
                         select i).First();
             }
 
-            if (user != null)
+            if (user != null) // Si l'utilisateur existe
             {
                 Session["userid"] = user.id_user;
                 Session["userName"] = user.first_name;
                 Session["userSurname"] = user.last_name;
-                if( Request.Form["itemID"] != null)
+                string itemId = Request.Form["itemID"];
+                if (itemId != null && itemId != "-1" && itemId != "" )//Si on se connecte suite à l'ajout au panier d'un article
                 {
-                    string itemId = Request.Form["itemID"];
                     return RedirectToAction("Buy","Cart", new { id = Int32.Parse(itemId) } );
                 }
-                else
+                else if (itemId == "-1")//Si on se connecte via le bouton panier
+                {
+                    return RedirectToAction("Cart", "Cart");
+                }
+                else//Si on se connecte via le bouton mon compte 
                 {
                     ViewBag.account = user;
                     return View("myAccount");
                 }
             }
-            else
+            else //S'il n'existe pas 
             {
                 ViewBag.itemID = Request.Form["itemID"];
                 ViewBag.notif = "email ou mot de passe incorrecte";

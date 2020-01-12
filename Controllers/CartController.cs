@@ -10,9 +10,14 @@ namespace BazarDeLaHess.Controllers
     public class CartController : Controller
     {
         private readonly BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
-        public ActionResult Index()
+        public ActionResult Cart()
         {
             return View();
+        }
+
+        public ActionResult ToOrder()
+        {
+            return View("Order");
         }
 
         public ActionResult Buy(int id)
@@ -41,7 +46,19 @@ namespace BazarDeLaHess.Controllers
                 }
                 Session["cart"] = cart;
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Cart");
+        }
+
+        public ActionResult Edit(int id, int qte)
+        {
+            if(qte == 0)
+            {
+                return View("Cart");
+            }
+            List<OrderItems> cart = (List<OrderItems>)Session["cart"];
+            int index = isExist(id);
+            cart[index].quantity = qte;
+            return RedirectToAction("Cart");
         }
 
         public ActionResult Remove(int id)
@@ -50,9 +67,10 @@ namespace BazarDeLaHess.Controllers
             int index = isExist(id);
             cart.RemoveAt(index);
             Session["cart"] = cart;
-            return RedirectToAction("Index");
+            return RedirectToAction("Cart");
         }
 
+        /*Retourn l'index de l'item dans la liste des items du panier*/
         private int isExist(int id)
         {
             List<OrderItems> cart = (List<OrderItems>)Session["cart"];

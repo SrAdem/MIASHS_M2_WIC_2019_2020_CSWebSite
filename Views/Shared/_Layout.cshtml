@@ -26,13 +26,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Bazzar de la Hess", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Bazzar de la Hess", "", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
 
                 <ul class="nav navbar-nav" style="float:right">
                     <li>
-                        <a asp-area="" asp-controller="Home" asp-action="Searche">
+                        <a>
                             <form asp-controller="Home" asp-action="Searche" method="get">
                                 <input type="text" name="search" placeholder="Que cherchez-vous ?" style="display:none" id="searchBar" >
                             </form>
@@ -43,12 +43,12 @@
                     @if (Session["userName"] != null)
                     {
                         <li><a href="@Url.Action("Connection", "Users")"><span class="glyphicon glyphicon-user"></span> @Session["userName"] @Session["userSurname"]</a></li>
-                        <li><a href="@Url.Action("Index", "Cart")"><span class="glyphicon glyphicon-shopping-cart"></span> Basket <span class="badge">0</span></a></li>
+                        <li><a href="@Url.Action("Cart", "Cart")"><span class="glyphicon glyphicon-shopping-cart"></span> Basket <span class="badge">0</span></a></li>
                     }
                     else
                     {
                         <li><a href="@Url.Action("Connection", "Users")"><span class="glyphicon glyphicon-user"></span> Account</a></li>
-                        <li><a href="@Url.Action("Connection", "Users")"><span class="glyphicon glyphicon-shopping-cart"></span> Basket</a></li>
+                        <li><a href="@Url.Action("Connection", "Users", new { itemID = "-1" })"><span class="glyphicon glyphicon-shopping-cart"></span> Basket</a></li>
                     }
 
                 </ul>
@@ -65,7 +65,7 @@
     <footer class="page-footer font-small blue">
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3">
-            © 2018 Copyright: @DateTime.Now.Year - Gau & Gurbuz Application
+            © 2020 Copyright: @DateTime.Now.Year - Gau & Gurbuz Application
         </div>
         <!-- Copyright -->
     </footer>

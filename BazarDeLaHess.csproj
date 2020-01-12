@@ -274,7 +274,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Create.cshtml" />
     <Content Include="Views\Home\Edit.cshtml" />
@@ -284,6 +284,7 @@
     <Content Include="Views\Users\MyAccount.cshtml" />
     <Content Include="Views\Users\NewAccount.cshtml" />
     <Content Include="Views\Users\ForgotPassword.cshtml" />
+    <Content Include="Views\Cart\Order.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
