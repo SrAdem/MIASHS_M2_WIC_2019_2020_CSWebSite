@@ -89,36 +89,30 @@ namespace BazarDeLaHess.Controllers
         [HttpPost]
         public ActionResult Pay(String number, String date, String code)
         {
+            Session["cart"] = new List<OrderItems>(); //On vide le panier
             return RedirectToAction("MyAccount", "Users");
         }
 
+        //Ajouter un produit (id) au panier
         public ActionResult Buy(int id)
         {
             OrderItems productModel = new OrderItems();
             var itemToBuy = (from i in _db.Item
                              where i.id_item == id
                              select i).First();
-            if (Session["cart"] == null)
+           
+            List<OrderItems> cart = (List<OrderItems>)Session["cart"]; //On recupère le contenu du panier
+            int index = isExist(id); //Vérifie si le produit est dans le panier
+            if (index != -1) //Si le produit est déjà dans le panier
             {
-                List<OrderItems> cart = new List<OrderItems>();
-                cart.Add(new OrderItems { id_item = id, quantity = 1, Item = itemToBuy });
-                Session["cart"] = cart;
+                cart[index].quantity++; //On augmente sa quantité
             }
             else
             {
-                List<OrderItems> cart = (List<OrderItems>)Session["cart"];
-                int index = isExist(id);
-                if (index != -1)
-                {
-                    cart[index].quantity++;
-                }
-                else
-                {
-                    cart.Add(new OrderItems { id_item = id, quantity = 1, Item = itemToBuy });
-                }
-                Session["cart"] = cart;
+                cart.Add(new OrderItems { id_item = id, quantity = 1, Item = itemToBuy }); //Sinon on l'ajoute au panier
             }
-            return RedirectToAction("Cart");
+            Session["cart"] = cart;
+            return RedirectToAction("Cart"); //Renvoie à la page du panier
         }
 
         public ActionResult Edit(int id, int qte)

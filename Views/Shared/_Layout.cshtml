@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using BazarDeLaHess.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,8 +9,7 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script>
-        function displaySearchBar()
-        {
+        function displaySearchBar() {
             var searchBar = document.getElementById('searchBar');
             searchBar.setAttribute("style", "display:block");
             searchBar.setAttribute("style", "color:black");
@@ -34,7 +34,7 @@
                     <li>
                         <a>
                             <form asp-controller="Home" asp-action="Searche" method="get">
-                                <input type="text" name="search" placeholder="Que cherchez-vous ?" style="display:none" id="searchBar" >
+                                <input type="text" name="search" placeholder="Que cherchez-vous ?" style="display:none" id="searchBar">
                             </form>
                         </a>
                     </li>
@@ -42,8 +42,9 @@
                     <li><a onclick="displaySearchBar()" style="cursor:pointer"><span class="glyphicon glyphicon-search"></span> Search</a></li>
                     @if (Session["userName"] != null)
                     {
+                        List<OrderItems> cart = (List<OrderItems>)Session["cart"];
                         <li><a href="@Url.Action("Connection", "Users")"><span class="glyphicon glyphicon-user"></span> @Session["userName"] @Session["userSurname"]</a></li>
-                        <li><a href="@Url.Action("Cart", "Cart")"><span class="glyphicon glyphicon-shopping-cart"></span> Basket <span class="badge">0</span></a></li>
+                        <li><a href="@Url.Action("Cart", "Cart")"><span class="glyphicon glyphicon-shopping-cart"></span> Basket <span class="badge"> @cart.ToList().Count() </span></a></li>
                     }
                     else
                     {

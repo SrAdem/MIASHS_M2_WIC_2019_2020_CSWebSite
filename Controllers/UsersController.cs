@@ -34,14 +34,19 @@ namespace BazarDeLaHess.Controllers
             return View();
         }
 
+        //Page du compute utilisateur
         public ActionResult MyAccount()
         {
-            int id = (int)Session["userid"];
-            Users user = (from i in _db.Users
-                          where i.id_user == id
-                          select i).First();
-            ViewBag.account = user;
-            return View();
+            if (Session["userid"] != null)
+            {
+                int id = (int)Session["userid"];
+                Users user = (from i in _db.Users
+                              where i.id_user == id
+                              select i).First();
+                ViewBag.account = user;
+                return View();
+            }
+            return RedirectToAction("Connection");
         }
 
         // POST : Connection
@@ -62,6 +67,7 @@ namespace BazarDeLaHess.Controllers
                     Session["userid"] = user.id_user;
                     Session["userName"] = user.first_name;
                     Session["userSurname"] = user.last_name;
+                    Session["cart"] = new List<OrderItems>();
                     string itemId = Request.Form["itemID"];
                     if (itemId != null && itemId != "-1" && itemId != "")//Si on se connecte suite à l'ajout au panier d'un article
                     {
