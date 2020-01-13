@@ -81,7 +81,15 @@ namespace BazarDeLaHess.Controllers
 
         public ActionResult Pay ()
         {
+            if (Session["userid"] == null) //Si l'utilisateur n'est pas connecté, on le renvoie à la page d'accueil
+                return RedirectToAction("Index", "Home");
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Pay(String number, String date, String code)
+        {
+            return RedirectToAction("MyAccount", "Users");
         }
 
         public ActionResult Buy(int id)

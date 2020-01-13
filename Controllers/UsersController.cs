@@ -28,14 +28,19 @@ namespace BazarDeLaHess.Controllers
         {
             if(Session["userid"] != null)
             {
-                int id = (int)Session["userid"];
-                Users user = (from i in _db.Users
-                              where i.id_user == id
-                              select i).First();
-                ViewBag.account = user;
-                return View("myAccount");
+                return RedirectToAction("MyAccount");
             }
             ViewBag.itemID = itemID;
+            return View();
+        }
+
+        public ActionResult MyAccount()
+        {
+            int id = (int)Session["userid"];
+            Users user = (from i in _db.Users
+                          where i.id_user == id
+                          select i).First();
+            ViewBag.account = user;
             return View();
         }
 

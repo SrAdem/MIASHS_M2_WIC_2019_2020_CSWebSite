@@ -1,3 +1,35 @@
 ﻿
-<h2>Pay</h2>
+@using BazarDeLaHess.Models
 
+<link rel="stylesheet" type="text/css" href="~/Content/Formulaire.css">
+
+
+<div class="container my-container">
+    <div class="my-form text-center">
+        <h3>Payment Details</h3>
+
+        <form role="form" method="post" action="@Url.Action("Pay", "Cart")">
+            <div class="form-group">
+                <label class="control-label" for="cardNumber">Numéro</label>
+                <div class="controls">
+                    <input type="text" class="form-control" id="cardNumber" name="number" placeholder="Numéro de la carte"
+                           required autofocus />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="expityMonth">Date d'expiration</label>
+                <div class="controls">
+                    <input type="text" class="form-control" name="date" id="expityYear" placeholder="MM/YY" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="cvCode">Code CV</label>
+                <div class="controls">
+                    <input type="password" class="form-control" id="cvCode" name="code" placeholder="CV" required />
+                </div>
+            </div>
+
+            <input type="submit" class="btnSubmit" value="Payer" />
+        </form>
+    </div>
+</div>
