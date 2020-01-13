@@ -43,8 +43,12 @@ namespace BazarDeLaHess.Controllers
                 Users user = (from i in _db.Users
                               where i.id_user == id
                               select i).First();
+                UserView userView = new UserView();
+                userView.Order = (from i in _db.Order
+                                  where i.id_user == id
+                                  select i).ToList();
                 ViewBag.account = user;
-                return View();
+                return View(userView);
             }
             return RedirectToAction("Connection");
         }
@@ -79,8 +83,7 @@ namespace BazarDeLaHess.Controllers
                     }
                     else//Si on se connecte via le bouton mon compte 
                     {
-                        ViewBag.account = user;
-                        return View("myAccount");
+                        return RedirectToAction("MyAccount");
                     }
                 }
                 else //S'il n'existe pas 
@@ -121,11 +124,10 @@ namespace BazarDeLaHess.Controllers
 
             if (ModelState.IsValid)
             {
-                ViewBag.account = newUser;
                 _db.Users.Add(newUser);
                 //On sauvgarde
                 _db.SaveChanges();
-                return View("MyAccount");
+                return RedirectToAction("MyAccount");
             }
             else
             {

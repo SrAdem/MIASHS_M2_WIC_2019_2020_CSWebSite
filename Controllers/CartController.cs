@@ -86,11 +86,39 @@ namespace BazarDeLaHess.Controllers
             return View();
         }
 
+        //Le paiement à était effectué, il faut donc enregistrer la commande
+        //Les paramêtres sont inutiles mais permettent de différencier le Get (fonction précédente) du Post.
         [HttpPost]
         public ActionResult Pay(String number, String date, String code)
         {
+            List<OrderItems> cart = (List<OrderItems>)Session["cart"]; //On récupère la liste des articles
+            //On récupère les informations sur l'utilisateur
+            int userid = (int)Session["userid"];
+
+            //On créer une nouvelle commande, on la complète et l'enregistre dans la base de donnée
+            Order order = new Order();
+            ModelState.Remove("id_order");
+            order.id_user = userid;
+            order.delivered = false;
+            order.date = DateTime.Now;
+            _db.Order.Add(order);
+            _db.SaveChanges();
+
+            int lastOrder = (from i in _db.Order //On récupère l'id de la commande
+                             select i.id_order).OrderByDescending(i => i).First();
+
+            //Pour chaque article, on enlève Item pour qu'il n'y ai pas d'erreur d'insertion et on ajoute l'id de la commande
+            foreach (OrderItems orderItem in cart)
+            {
+                orderItem.Item = null;
+                orderItem.id_order = lastOrder;
+                _db.OrderItems.Add(orderItem); //On ajoute à la bdd
+            }
+            //On sauvgarde
+            _db.SaveChanges();
+
             Session["cart"] = new List<OrderItems>(); //On vide le panier
-            return RedirectToAction("MyAccount", "Users");
+            return RedirectToAction("MyAccount", "Users"); //On affiche la page utilisateur
         }
 
         //Ajouter un produit (id) au panier

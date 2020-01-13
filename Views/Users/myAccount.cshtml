@@ -1,25 +1,62 @@
-﻿
-<h3>Success Page</h3>
-Welcome @Session["userName"]
-<br>
-<a href="@Url.Action("Logout", "Users")">Logout</a>
+﻿@using BazarDeLaHess.Models
+@model BazarDeLaHess.Models.UserView
+<br />
 
-<h3>Account Info</h3>
-<table cellpadding="2" cellspacing="2" border="1">
-    <tr>
-        <td>nom</td>
-        <td>@ViewBag.account.last_name</td>
-    </tr>
-    <tr>
-        <td>prénom</td>
-        <td>@ViewBag.account.first_name</td>
-    </tr>
-    <tr>
-        <td>email</td>
-        <td>@ViewBag.account.email</td>
-    </tr>
-    <tr>
-        <td>mot de passe</td>
-        <td>@ViewBag.account.pass_word</td>
-    </tr>
-</table>
+<div class="body-wrap">
+    <div class="container">
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand">@(ViewBag.account.first_name + " " + ViewBag.account.last_name)</span>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Information personnelle</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Historique des commandes</a></li>
+                        <li class="dropdown"><a href="@Url.Action("Logout", "Users")" class="dropdown-toggle" data-toggle="dropdown" style="color:red">Déconnexion</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div id="currentOrder">
+    @foreach (Order order in Model.Order)
+    {
+        
+    }
+</div>
+
+<div id="userInfo">
+    <h3>Account Info</h3>
+    <table cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <td>nom</td>
+            <td>@ViewBag.account.last_name</td>
+        </tr>
+        <tr>
+            <td>prénom</td>
+            <td>@ViewBag.account.first_name</td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td>@ViewBag.account.email</td>
+        </tr>
+        <tr>
+            <td>mot de passe</td>
+            <td>@ViewBag.account.pass_word</td>
+        </tr>
+    </table>
+</div>
+
+<div id="history">
+
+</div>

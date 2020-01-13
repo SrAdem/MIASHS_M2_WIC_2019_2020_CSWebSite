@@ -28,7 +28,7 @@
           <Key>
             <PropertyRef Name="id_category" />
           </Key>
-          <Property Name="id_category" Type="int" Nullable="false" />
+          <Property Name="id_category" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Item">
@@ -54,14 +54,14 @@
           <Key>
             <PropertyRef Name="id_mastercategory" />
           </Key>
-          <Property Name="id_mastercategory" Type="int" Nullable="false" />
+          <Property Name="id_mastercategory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="id_order" />
           </Key>
-          <Property Name="id_order" Type="int" Nullable="false" />
+          <Property Name="id_order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_user" Type="int" Nullable="false" />
           <Property Name="date" Type="date" Nullable="false" />
           <Property Name="delivered" Type="bit" Nullable="false" />

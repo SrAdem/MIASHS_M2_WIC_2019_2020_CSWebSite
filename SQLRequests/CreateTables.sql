@@ -9,13 +9,13 @@
 );
 
 CREATE TABLE [dbo].[Category] (
-    [id_category]    INT          NOT NULL,
+    [id_category]    INT          IDENTITY (1, 1) NOT NULL,
     [title]          VARCHAR (50) NOT NULL,
     PRIMARY KEY CLUSTERED ([id_category] ASC)
 );
 
 CREATE TABLE [dbo].[MasterCategory] (
-    [id_mastercategory] INT          NOT NULL,
+    [id_mastercategory] INT          IDENTITY (1, 1) NOT NULL,
     [title]             VARCHAR (50) NOT NULL,
     PRIMARY KEY CLUSTERED ([id_mastercategory] ASC)
 );
@@ -59,7 +59,7 @@ CREATE TABLE [dbo].[Users] (
 );
 
 CREATE TABLE [dbo].[Order] (
-    [id_order]  INT  NOT NULL,
+    [id_order]  INT  IDENTITY (1, 1) NOT NULL,
     [id_user]   INT  NOT NULL,
     [date]      DATE NOT NULL,
     [delivered] BIT  NOT NULL,
