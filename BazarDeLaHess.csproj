@@ -254,6 +254,7 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>BazarDeLaHessModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

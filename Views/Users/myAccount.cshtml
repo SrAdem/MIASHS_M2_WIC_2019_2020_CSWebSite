@@ -1,5 +1,60 @@
 ﻿@using BazarDeLaHess.Models
 @model BazarDeLaHess.Models.UserView
+
+<link rel="stylesheet" type="text/css" href="~/Content/Formulaire.css">
+<style>
+    .orderDiv {
+        width: 50%;
+    }
+
+    .orderDiv nav div,
+    .orderDiv nav div ul,
+    .orderDiv nav div ul li,
+    .orderTable {
+        width: 100%
+    }
+
+    .orderItemName {
+        width: 70%
+    }
+
+    .orderItemQuantity {
+        width: 10%
+    }
+
+    .orderItemTotal {
+        width: 20%;
+    }
+
+    .userInfos {
+        color: white;
+    }
+
+    .userInfosCell {
+        width:50%;
+    }
+</style>
+
+<script>
+    function commingOrder() {
+        document.getElementById("order").setAttribute("style", "display:block");
+        document.getElementById("userInfo").setAttribute("style", "display:none");
+        document.getElementById("history").setAttribute("style", "display:none");
+    }
+
+    function personalInformation() {
+        document.getElementById("order").setAttribute("style", "display:none");
+        document.getElementById("userInfo").setAttribute("style", "display:block");
+        document.getElementById("history").setAttribute("style", "display:none");
+    }
+
+    function history() {
+        document.getElementById("order").setAttribute("style", "display:none");
+        document.getElementById("userInfo").setAttribute("style", "display:none");
+        document.getElementById("history").setAttribute("style", "display:block");
+    }
+</script>
+
 <br />
 
 <div class="body-wrap">
@@ -13,14 +68,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <span class="navbar-brand">@(ViewBag.account.first_name + " " + ViewBag.account.last_name)</span>
+                    <span onclick="commingOrder()" class="navbar-brand"><a href="#">@(ViewBag.account.first_name + " " + ViewBag.account.last_name)</a></span>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Information personnelle</a></li>
-                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Historique des commandes</a></li>
-                        <li class="dropdown"><a href="@Url.Action("Logout", "Users")" class="dropdown-toggle" data-toggle="dropdown" style="color:red">Déconnexion</a></li>
+                        <li onclick="personalInformation()"><a href="#">Information personnelle</a></li>
+                        <li onclick="history()"><a href="#">Historique des commandes</a></li>
+                        <li><a href="@Url.Action("Logout", "Users")" style="color:red">Déconnexion</a></li>
                     </ul>
                 </div>
             </div>
@@ -28,35 +83,115 @@
     </div>
 </div>
 
-<div id="currentOrder">
+@{double total = 0; }
+<div id="order">
     @foreach (Order order in Model.Order)
     {
-        
+        if (order.delivered == false)
+        {
+            <div class="container orderDiv">
+                <nav class="navbar navbar-inverse" role="navigation">
+                    <div class="collapse navbar-collapse nav navbar-nav">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Commande n°@order.id_order passer le @order.date.ToString("dd/MM/yyyy")<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    @foreach (OrderItems orderItem in order.OrderItems)
+                                    {
+                                        <li>
+                                            <table class="orderTable text-center">
+                                                <tr>
+                                                    <td class="orderItemName"><a href="@Url.Action("Details", "Home", new { id = orderItem.Item.id_item })">@orderItem.Item.name</a></td>
+                                                    <td class="orderItemQuantity">@orderItem.quantity</td>
+                                                    <td class="orderItemTotal">@(orderItem.quantity * orderItem.Item.price)</td>
+                                                    @{total = total + orderItem.quantity * orderItem.Item.price;}
+                                                </tr>
+                                            </table>
+                                        </li>
+                                    }
+                                    <li>
+                                        <table class="orderTable text-center">
+                                            <tr>
+                                                <td class="orderItemName"> </td>
+                                                <td class="orderItemQuantity"><b>Total : </b></td>
+                                                <td class="orderItemTotal">@total</td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        }
     }
 </div>
 
-<div id="userInfo">
-    <h3>Account Info</h3>
-    <table cellpadding="2" cellspacing="2" border="1">
-        <tr>
-            <td>nom</td>
-            <td>@ViewBag.account.last_name</td>
-        </tr>
-        <tr>
-            <td>prénom</td>
-            <td>@ViewBag.account.first_name</td>
-        </tr>
-        <tr>
-            <td>email</td>
-            <td>@ViewBag.account.email</td>
-        </tr>
-        <tr>
-            <td>mot de passe</td>
-            <td>@ViewBag.account.pass_word</td>
-        </tr>
-    </table>
+<div id="userInfo" style="display:none">
+    <div class="container my-container">
+        <div class="my-form text-center">
+            <h3>Profil utilisateur</h3>
+            <div>
+                <table class="userInfos orderTable">
+                    <tr>
+                        <td class="userInfosCell">nom</td>
+                        <td class="userInfosCell">@ViewBag.account.last_name</td>
+                    </tr>
+                    <tr>
+                        <td class="userInfosCell">prénom</td>
+                        <td class="userInfosCell">@ViewBag.account.first_name</td>
+                    </tr>
+                    <tr>
+                        <td class="userInfosCell">email</td>
+                        <td class="userInfosCell">@ViewBag.account.email</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="history">
-
+<div id="history" style="display:none">
+    @foreach (Order order in Model.Order)
+    {
+        if (order.delivered == true)
+        {
+            <div class="container orderDiv">
+                <nav class="navbar navbar-inverse" role="navigation">
+                    <div class="collapse navbar-collapse nav navbar-nav">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Commande n°@order.id_order passer le @order.date.ToString("dd/MM/yyyy")<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    @foreach (OrderItems orderItem in order.OrderItems)
+                                    {
+                                        <li>
+                                            <table class="orderTable text-center">
+                                                <tr>
+                                                    <td class="orderItemName"><a href="@Url.Action("Details", "Home", new { id = orderItem.Item.id_item })">@orderItem.Item.name</a></td>
+                                                    <td class="orderItemQuantity">@orderItem.quantity</td>
+                                                    <td class="orderItemTotal">@(orderItem.quantity * orderItem.Item.price)</td>
+                                                    @{total = total + orderItem.quantity * orderItem.Item.price;}
+                                                </tr>
+                                            </table>
+                                        </li>
+                                    }
+                                    <li>
+                                        <table class="orderTable text-center">
+                                            <tr>
+                                                <td class="orderItemName"> </td>
+                                                <td class="orderItemQuantity"><b>Total : </b></td>
+                                                <td class="orderItemTotal">@total</td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        }
+    }
 </div>
