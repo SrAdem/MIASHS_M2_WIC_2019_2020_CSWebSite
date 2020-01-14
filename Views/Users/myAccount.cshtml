@@ -14,16 +14,24 @@
         width: 100%
     }
 
+    .orderLi {
+        border-bottom: 1px solid gray;
+        margin-bottom:5px;
+        padding-bottom:5px
+    }
+
     .orderItemName {
         width: 70%
     }
 
     .orderItemQuantity {
-        width: 10%
+        width: 10%;
+        border-left: 1px solid gray;
     }
 
     .orderItemTotal {
         width: 20%;
+        border-left: 1px solid gray;
     }
 
     .userInfos {
@@ -98,7 +106,7 @@
                                 <ul class="dropdown-menu">
                                     @foreach (OrderItems orderItem in order.OrderItems)
                                     {
-                                        <li>
+                                        <li class="orderLi">
                                             <table class="orderTable text-center">
                                                 <tr>
                                                     <td class="orderItemName"><a href="@Url.Action("Details", "Home", new { id = orderItem.Item.id_item })">@orderItem.Item.name</a></td>
@@ -166,7 +174,7 @@
                                 <ul class="dropdown-menu">
                                     @foreach (OrderItems orderItem in order.OrderItems)
                                     {
-                                        <li>
+                                        <li class="orderLi">
                                             <table class="orderTable text-center">
                                                 <tr>
                                                     <td class="orderItemName"><a href="@Url.Action("Details", "Home", new { id = orderItem.Item.id_item })">@orderItem.Item.name</a></td>

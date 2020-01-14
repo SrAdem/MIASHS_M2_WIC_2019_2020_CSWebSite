@@ -39,12 +39,12 @@
                         </a>
                     </li>
 
-                    <li><a onclick="displaySearchBar()" style="cursor:pointer"><span class="glyphicon glyphicon-search"></span> Search</a></li>
+                    <li><a onclick="displaySearchBar()" style="cursor:pointer"><span class="glyphicon glyphicon-search"></span> Recherche</a></li>
                     @if (Session["userName"] != null)
                     {
                         List<OrderItems> cart = (List<OrderItems>)Session["cart"];
                         <li><a href="@Url.Action("Connection", "Users")"><span class="glyphicon glyphicon-user"></span> @Session["userName"] @Session["userSurname"]</a></li>
-                        <li><a href="@Url.Action("Cart", "Cart")"><span class="glyphicon glyphicon-shopping-cart"></span> Basket <span class="badge"> @cart.ToList().Count() </span></a></li>
+                        <li><a href="@Url.Action("Cart", "Cart")"><span class="glyphicon glyphicon-shopping-cart"></span> Panier <span class="badge"> @cart.ToList().Count() </span></a></li>
                     }
                     else
                     {

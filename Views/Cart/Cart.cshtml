@@ -48,7 +48,7 @@
                                     }
                                     else
                                     {
-                                        <a href="@Url.Action("Edit", "Cart", new { id = item.id_item, qte = item.quantity - 1})">-</a>
+                                        <a href="@Url.Action("Edit", "Cart", new { id = item.id_item, qte = item.quantity - 1 })">-</a>
                                     }
                                     <a>
                                         @using (Html.BeginForm("Edit", "Cart", FormMethod.Get, new { @style = "display:inline-block;" }))
@@ -57,14 +57,14 @@
                                             @Html.Hidden("id", item.id_item)
                                         }
                                     </a>
-                                    <a href="@Url.Action("Edit", "Cart", new { id = item.id_item, qte = item.quantity + 1})">+</a>
+                                    <a href="@Url.Action("Edit", "Cart", new { id = item.id_item, qte = item.quantity + 1 })">+</a>
                                 </td>
                                 <td class="col-sm-7 noPadding"><a href="@Url.Action("Details", "Home", new { id = item.id_item })">@item.Item.name</a></td>
                                 <td class="col-sm-2 noPadding">@item.Item.price €</td>
                                 <td><a href="@Url.Action("Remove", "Cart", new { id = item.id_item })" style="color:red">X</a></td>
                             </tr>
-                        }
-                    }
+                                            }
+                                        }
                     <tr><td style="padding-bottom:38px"></td></tr>
                 </table>
             </div>
@@ -85,10 +85,10 @@
                             <td class="col-sm-1" style="padding-top:10px">@(item.quantity * item.Item.price) €</td>
                             @{totalPrice = totalPrice + (item.quantity * item.Item.price);}
                         </tr>
-                    }
+                                }
                 </table>
                 <div><span style="font-size:20px; font-weight:bold">Prix : </span><span style="font-size:20px;">@totalPrice €</span></div>
-            }
+                                }
 
         </div>
     </div>
@@ -96,8 +96,13 @@
 
 <br>
 <div class="text-center">
-    @using (Html.BeginForm("Order", "Cart", FormMethod.Get, new { @style = "display:inline-block;" }))
+    @{List<OrderItems> empty = (List<OrderItems>)Session["cart"];}
+    @if (empty.Count() > 0)
     {
-        <input type="submit" value="Commander">
+        using (Html.BeginForm("Order", "Cart", FormMethod.Get, new { @style = "display:inline-block;" }))
+        {
+            <input type="submit" value="Commander">
+        }
     }
+
 </div>
