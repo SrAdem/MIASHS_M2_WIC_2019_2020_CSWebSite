@@ -55,3 +55,9 @@ INSERT INTO ItemCategory (id_item, id_category)
 VALUES (1,5),
 (2,5),
 (3,5);
+
+INSERT INTO Users (first_name, last_name, email, pass_word, superUser)
+VALUES ('Adem', 'Gurbuz', 'adem@gur.buz', 'adem', 1),
+('Nico', 'Gau', 'nico@gau.pastis', 'nico', 1),
+('Sadok', 'Ben', 'sadok@ben.fredj', 0),
+('Jimmy','Avae', 'Ymmij@eava.etouais', 0);

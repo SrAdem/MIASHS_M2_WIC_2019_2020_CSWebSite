@@ -71,6 +71,7 @@ namespace BazarDeLaHess.Controllers
                     Session["userid"] = user.id_user;
                     Session["userName"] = user.first_name;
                     Session["userSurname"] = user.last_name;
+                    Session["superUser"] = user.superUser;
                     Session["cart"] = new List<OrderItems>();
                     string itemId = Request.Form["itemID"];
                     if (itemId != null && itemId != "-1" && itemId != "")//Si on se connecte suite à l'ajout au panier d'un article
@@ -108,6 +109,7 @@ namespace BazarDeLaHess.Controllers
             Session.Remove("userName");
             Session.Remove("userSurname");
             Session.Remove("userid");
+            Session.Remove("superUser");
             return RedirectToAction("Connection");
         }
 
@@ -118,12 +120,17 @@ namespace BazarDeLaHess.Controllers
         }
 
         [HttpPost]
-        public ActionResult NewAccount(Users newUser)
+        public ActionResult NewAccount(Users newUser, string passwordConfirm)
         {
             ModelState.Remove("id_user"); // This will remove the key 
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && passwordConfirm != "")
             {
+                if(passwordConfirm != newUser.pass_word)
+                {
+                    ViewBag.error = "les mots de passe ne sont pas identique";
+                    return View("NewAccount");
+                }
                 _db.Users.Add(newUser);
                 //On sauvgarde
                 _db.SaveChanges();

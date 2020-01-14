@@ -54,6 +54,7 @@ CREATE TABLE [dbo].[Users] (
     [last_name]  VARCHAR (50) NOT NULL,
     [email]      VARCHAR (50) NOT NULL,
     [pass_word]  VARCHAR (50) NOT NULL,
+    [superUser]  BIT          DEFAULT ((0)) NOT NULL,
     PRIMARY KEY CLUSTERED ([id_user] ASC),
     CONSTRAINT [FK_User_Address] FOREIGN KEY ([id_address]) REFERENCES [dbo].[Address] ([id_address])
 );

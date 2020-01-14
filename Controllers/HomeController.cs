@@ -73,17 +73,19 @@ namespace BazarDeLaHess.Controllers
         // GET: Home/Create
         public ActionResult Create()
         {
+            ViewBag.categories = _db.Category.ToList();
             return View();
         }
 
         // POST: Home/Create
         [HttpPost]
-        public ActionResult Create(Item itemToCreate)
+        public ActionResult Create(Item itemToCreate, int category)
         {
             ModelState.Remove("id_item"); // This will remove the key 
 
             if (!ModelState.IsValid)
             {
+                ViewBag.categories = _db.Category.ToList();
                 return View();
             }
 
@@ -98,6 +100,7 @@ namespace BazarDeLaHess.Controllers
             }
             catch
             {
+                ViewBag.categories = _db.Category.ToList();
                 return View();
             }
         }

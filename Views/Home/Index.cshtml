@@ -1,6 +1,14 @@
 ﻿@using BazarDeLaHess.Models
 @model BazarDeLaHess.Models.HomeView
 
+@{
+    bool superUser = false;
+    if (Session["superUser"] != null && (bool)Session["superUser"] == true)
+    {
+        superUser = true;
+    }
+}
+
 <br />
 
 <div class="body-wrap">
@@ -41,6 +49,12 @@
     </div>
 </div>
 
+@if (superUser == true)
+{
+    <p>
+        @Html.ActionLink("Ajouter un nouvel objet", "Create")
+    </p>
+}
 <table class="table">
     @foreach (Item item in Model.Item)
     {
@@ -64,9 +78,16 @@
                 <img src="~/Content/Images/@item.picture" width="60" />
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id_item }) |
-                @Html.ActionLink("Details", "Details", new { id = item.id_item }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id_item }) |
+
+                @if (superUser == true)
+                {
+                    <span>
+                        @Html.ActionLink("Supprimer", "Delete", new { id = item.id_item }) |
+                        @Html.ActionLink("Editer", "Edit", new { id = item.id_item }) |
+                    </span>
+                }
+                @Html.ActionLink("Détailles", "Details", new { id = item.id_item }) |
+
                 @if (item.available)
                 {
                     if (Session["userName"] != null)

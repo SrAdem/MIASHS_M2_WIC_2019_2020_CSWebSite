@@ -85,6 +85,7 @@
           <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="pass_word" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="superUser" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Item_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -305,6 +306,7 @@
           <Property Name="pass_word" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Address" Relationship="Self.FK_User_Address" FromRole="Users" ToRole="Address" />
           <NavigationProperty Name="Order" Relationship="Self.FK_Order_Userid" FromRole="Users" ToRole="Order" />
+          <Property Name="superUser" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_User_Address">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
@@ -463,6 +465,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="BazarDeLaHessModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="superUser" ColumnName="superUser" />
                 <ScalarProperty Name="id_user" ColumnName="id_user" />
                 <ScalarProperty Name="id_address" ColumnName="id_address" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />

@@ -13,6 +13,7 @@ namespace BazarDeLaHess.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+
     public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -44,6 +45,8 @@ namespace BazarDeLaHess.Models
         [Required]
         [Display(Name = "Password")]
         public string pass_word { get; set; }
+
+        public bool superUser { get; set; }
 
         public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

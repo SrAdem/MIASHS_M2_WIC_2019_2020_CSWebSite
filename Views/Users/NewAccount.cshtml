@@ -3,13 +3,14 @@
 
 <div class="container my-container">
     <div class="my-form text-center">
+
         <h3>Inscription</h3>
 
         @using (Html.BeginForm("NewAccount", "Users", FormMethod.Post))
         {
             <!-- Surname -->
             <div class="form-group">
-                <label class="control-label" for="username">Nom</label>
+                <label class="control-label" for="last_name">Nom</label>
                 <div class="controls">
                     @Html.TextBoxFor(model => model.last_name, new { @class = "form-control" })<br />
                     @Html.ValidationMessageFor(model => model.last_name)
@@ -17,7 +18,7 @@
             </div>
             <!-- Name -->
             <div class="form-group">
-                <label class="control-label" for="username">Prénom</label>
+                <label class="control-label" for="first_name">Prénom</label>
                 <div class="controls">
                     @Html.TextBoxFor(model => model.first_name, new { @class = "form-control" })<br />
                     @Html.ValidationMessageFor(model => model.first_name)
@@ -25,7 +26,7 @@
             </div>
             <!-- E-mail -->
             <div class="form-group">
-                <label class="control-label" for="username">E-mail</label>
+                <label class="control-label" for="email">E-mail</label>
                 <div class="controls">
                     @Html.TextBoxFor(model => model.email, new { @class = "form-control" })<br />
                     @Html.ValidationMessageFor(model => model.email)
@@ -33,7 +34,7 @@
             </div>
             <!-- Password-->
             <div class="form-group">
-                <label class="control-label" for="username">Mot de passe</label>
+                <label class="control-label" for="pass_word">Mot de passe</label>
                 <div class="controls">
                     @Html.PasswordFor(model => model.pass_word, new { @class = "form-control" })<br />
                     @Html.ValidationMessageFor(model => model.pass_word)
@@ -42,7 +43,7 @@
             </div>
             <!-- Password confirm-->
             <div class="form-group">
-                <label class="control-label" for="username">Confirmer le Mot de passe</label>
+                <label class="control-label" for="passwordConfirm">Confirmer le Mot de passe</label>
                 <div class="controls">
                     <input type="password" name="passwordConfirm" placeholder="" class="form-control">
                     <p class="help-block">Please confirm password</p>
