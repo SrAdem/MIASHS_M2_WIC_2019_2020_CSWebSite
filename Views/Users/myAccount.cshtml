@@ -7,17 +7,17 @@
         width: 50%;
     }
 
-    .orderDiv nav div,
-    .orderDiv nav div ul,
-    .orderDiv nav div ul li,
-    .orderTable {
-        width: 100%
-    }
+        .orderDiv nav div,
+        .orderDiv nav div ul,
+        .orderDiv nav div ul li,
+        .orderTable {
+            width: 100%
+        }
 
     .orderLi {
         border-bottom: 1px solid gray;
-        margin-bottom:5px;
-        padding-bottom:5px
+        margin-bottom: 5px;
+        padding-bottom: 5px
     }
 
     .orderItemName {
@@ -39,11 +39,12 @@
     }
 
     .userInfosCell {
-        width:50%;
+        width: 50%;
     }
 </style>
 
 <script>
+    // Des scripts pour de l'affichage dynamique
     function commingOrder() {
         document.getElementById("order").setAttribute("style", "display:block");
         document.getElementById("userInfo").setAttribute("style", "display:none");
@@ -64,7 +65,8 @@
 </script>
 
 <br />
-
+<!-- Page de l'utilisateur lui permettant de trouver diverse informations -->
+<!-- Bar de navigation de la page utilisateur -->
 <div class="body-wrap">
     <div class="container">
         <nav class="navbar navbar-inverse" role="navigation">
@@ -91,6 +93,7 @@
     </div>
 </div>
 
+<!-- Section des commandes en cours -->
 @{double total = 0; }
 <div id="order">
     @foreach (Order order in Model.Order)
@@ -136,6 +139,7 @@
     }
 </div>
 
+<!-- Section des informations personnelle de l'utilisateur-->
 <div id="userInfo" style="display:none">
     <div class="container my-container">
         <div class="my-form text-center">
@@ -160,6 +164,7 @@
     </div>
 </div>
 
+<!-- Section des commandes livré (historique) de l'utilisateur -->
 <div id="history" style="display:none">
     @foreach (Order order in Model.Order)
     {

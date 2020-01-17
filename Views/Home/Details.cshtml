@@ -4,6 +4,7 @@
     ViewBag.Title = "Details";
 }
 
+<!-- Détail d'un objet -->
 <div>
     <h2 class="text-center">@Html.DisplayFor(model => model.name)</h2>
     @if (Session["superUser"] != null && (bool)Session["superUser"] == true)

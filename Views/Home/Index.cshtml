@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="~/Content/Index.css">
 
 <br />
-
+<!-- La barre de navigation affichant les différents catégories d'objets -->
 <div class="body-wrap">
     <div class="container">
         <nav class="navbar navbar-inverse" role="navigation">
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-@if (superUser == true)
+@if (superUser == true) //Ajout du bouton pour les admins leur permettant d'ajouter un Item
 {
     <p>
         @Html.ActionLink("Ajouter un nouvel objet", "Create")
@@ -59,7 +59,7 @@
 <section class="pricing py-5">
     <div class="container">
         <div class="row">
-            @foreach (Item item in Model.Item)
+            @foreach (Item item in Model.Item) //Affichange de chaque objet dans des Card (bootstrap) Bouton d'achat ou de détail et quelques informations
             {
                 String description = item.description.Length <= maxDescriptionLength ? item.description : item.description.Substring(0, maxDescriptionLength) + " ...";
                 String itemTitle = item.name.Length <= maxTitleLenght ? item.name : item.name.Substring(0, maxTitleLenght) + " ...";
@@ -71,7 +71,7 @@
                         <div class="card-body text-center">
                             <h4 style="padding-top:10px">@itemTitle</h4>
 
-                            @if (item.available)
+                            @if (item.available) //Si l'article est disponible ou non, affiche un bouton clicable ou non
                             {
                                 color = "btn-primary";
                                 title = "";

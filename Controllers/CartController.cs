@@ -13,6 +13,8 @@ namespace BazarDeLaHess.Controllers
         private readonly BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
         public ActionResult Cart()
         {
+            if (Session["userid"] == null) //Si l'utilisateur n'est pas connecté, on le renvoie à la page d'accueil
+                return RedirectToAction("Index", "Home");
             return View();
         }
 
@@ -143,6 +145,7 @@ namespace BazarDeLaHess.Controllers
             return RedirectToAction("Cart"); //Renvoie à la page du panier
         }
 
+        // modifie la quantité d'un objet
         public ActionResult Edit(int id, int qte)
         {
             if(qte == 0)
@@ -155,6 +158,7 @@ namespace BazarDeLaHess.Controllers
             return RedirectToAction("Cart");
         }
 
+        //Supprime un objet du panier
         public ActionResult Remove(int id)
         {
             List<OrderItems> cart = (List<OrderItems>)Session["cart"];

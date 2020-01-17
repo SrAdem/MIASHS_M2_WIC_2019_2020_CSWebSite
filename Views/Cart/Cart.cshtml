@@ -24,6 +24,7 @@
 
 <div class="container" style="margin-top:50px">
     <div class="row justify-content-md-center">
+        <!-- Première section : Les objets du panier-->
         <div class="col-sm-9">
             <div style="margin:10px 0px 10px 100px; font-size:25px; font-weight:bold">Mon Panier : </div>
             <div class="col-sm-12 row justify-content-md-center text-center" style="border:2px solid black">
@@ -34,15 +35,14 @@
                     <div class="col-sm-1 noPadding"></div>
                 </div>
                 <table class="col-sm-12 row justify-content-md-center" style="margin:0px 0px 10px 5px;padding-bottom:20px">
-                    @if (Session["cart"] != null)
+                    @if (Session["cart"] != null) //On affiche les produits du panier
                     {
-                        foreach (OrderItems item in (List<OrderItems>)Session["cart"])
+                        foreach (OrderItems item in (List<OrderItems>)Session["cart"]) //Chaque objet à une ligne contenant son nom, la quantité et le prix
                         {
                             <tr>
-                                <!--<td class="col-sm-1" style="padding-top:10px"><a href="">-</a>  @item.quantity  <a href="">+</a></td>-->
                                 <td class="col-sm-2 noPadding">
                                     @{int newQteMinus = item.quantity - 1;}
-                                    @if (newQteMinus == 0)
+                                    @if (newQteMinus == 0) //Selon la quantité du produit, on retire 1 à la quantité ou on supprime l'objet à 0
                                     {
                                         <a href="@Url.Action("Remove", "Cart", new { id = item.id_item })">-</a>
                                     }
@@ -51,8 +51,8 @@
                                         <a href="@Url.Action("Edit", "Cart", new { id = item.id_item, qte = item.quantity - 1 })">-</a>
                                     }
                                     <a>
-                                        @using (Html.BeginForm("Edit", "Cart", FormMethod.Get, new { @style = "display:inline-block;" }))
-                                        {
+                                        @using (Html.BeginForm("Edit", "Cart", FormMethod.Get, new { @style = "display:inline-block;" })) 
+                                        { // Permet d'augmente ou réduire la quantité plus rapidement avec un input number
                                             <input type="number" name="qte" min="1" max="99" value="@item.quantity" />
                                             @Html.Hidden("id", item.id_item)
                                         }
@@ -63,15 +63,15 @@
                                 <td class="col-sm-2 noPadding">@item.Item.price €</td>
                                 <td><a href="@Url.Action("Remove", "Cart", new { id = item.id_item })" style="color:red">X</a></td>
                             </tr>
-                                            }
-                                        }
+                        }
+                    }
                     <tr><td style="padding-bottom:38px"></td></tr>
                 </table>
             </div>
         </div>
 
 
-
+        <!-- Deuxième section : le prix total -->
         <div class="col-sm-2 text-center" style="border:solid; margin-left:30px;">
             <div style="margin-top:10px; font-size:25px; font-weight:bold">Total</div>
             <hr />
@@ -94,6 +94,8 @@
     </div>
 </div>
 
+
+<!-- Bouton s'affichant uniquement si l'utilisateur à des produits dans son panier -->
 <br>
 <div class="text-center">
     @{List<OrderItems> empty = (List<OrderItems>)Session["cart"];}

@@ -22,20 +22,21 @@ namespace BazarDeLaHess.Controllers
         {
             HomeView hv = new HomeView() { Category = _db.MasterCategory.ToList() };
             
-            if (!String.IsNullOrEmpty(search))
+            if (!String.IsNullOrEmpty(search)) //S'il y a une recherche faite par l'utilisateur
             {
                 var items = (from m in _db.Item where m.name.Contains(search)
                              select m);
                 if(items != null)
                 {
                     hv.Item = items.ToList();
-                    return View("Index",hv);
+                    return View("Index",hv); //On envoie seulement les objets correspondant
                 }
             }
             hv.Item = _db.Item.ToList();
-            return View(hv);
+            return View(hv); // On envoie tout
         }
 
+        //Affichage des objets appartenant à une catégorie
         public ActionResult Category(int? subcategory)
         {
             HomeView hv = new HomeView() { Category = _db.MasterCategory.ToList() };
@@ -80,7 +81,7 @@ namespace BazarDeLaHess.Controllers
         // POST: Home/Create
         [HttpPost]
         public ActionResult Create(Item itemToCreate, int category)
-        {
+        {   //Creer un objet
             ModelState.Remove("id_item"); // This will remove the key 
 
             if (!ModelState.IsValid)

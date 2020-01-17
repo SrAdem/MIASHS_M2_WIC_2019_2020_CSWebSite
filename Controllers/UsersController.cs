@@ -15,6 +15,7 @@ namespace BazarDeLaHess.Controllers
     {
         private readonly BazarDeLaHessEntities _db = new BazarDeLaHessEntities();
 
+        //Paterne de vérification pour un email
         private const string MatchEmailPattern =
             @"^(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@"
         + @"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
@@ -25,19 +26,19 @@ namespace BazarDeLaHess.Controllers
 
         // GET: Users
         public ActionResult Connection(int? itemID)
-        {
-            if(Session["userid"] != null)
+        { //Connexion d'un utilisateur
+            if(Session["userid"] != null) //S'il y a un utilisateur connecté, alors on le dirige vers sa page perso
             {
                 return RedirectToAction("MyAccount");
             }
             ViewBag.itemID = itemID;
-            return View();
+            return View(); //Sinon la page de connexion
         }
 
         //Page du compute utilisateur
         public ActionResult MyAccount()
         {
-            if (Session["userid"] != null)
+            if (Session["userid"] != null) //Envoie les commandes passé et en cours de l'utilisateur et le dirige vers la page utilisateur
             {
                 int id = (int)Session["userid"];
                 Users user = (from i in _db.Users
@@ -106,6 +107,7 @@ namespace BazarDeLaHess.Controllers
         [HttpGet]
         public ActionResult Logout()
         {
+            //Déconnexion en supprimant toutes les variables de session
             Session.Remove("userName");
             Session.Remove("userSurname");
             Session.Remove("userid");
@@ -126,7 +128,7 @@ namespace BazarDeLaHess.Controllers
 
             if (ModelState.IsValid && passwordConfirm != "")
             {
-                if(passwordConfirm != newUser.pass_word)
+                if(passwordConfirm != newUser.pass_word) //Si le mot de passe est identique à l'input de vérification de mot de passe
                 {
                     ViewBag.error = "les mots de passe ne sont pas identique";
                     return View("NewAccount");

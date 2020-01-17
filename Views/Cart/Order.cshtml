@@ -2,17 +2,19 @@
 
 <link rel="stylesheet" type="text/css" href="~/Content/Formulaire.css">
 
+<!-- Pour l'adresse de l'utilisateur 
+    Element remplis selon ce qu'il d'enregistrer dans la base de donnée (par l'utilisateur) ou à remplir par l'utilisateur -->
 <div class="container my-container" >
     <div class="my-form text-center">
-        <span>Adresse de livraison.</span><br/>
-        <span>Si vous souhaitez enregistrer l'adresse appuyer sur le bouton</span><br/>
+        <span>Adresse de livraison.</span><br />
+        <span>Si vous souhaitez enregistrer l'adresse appuyer sur le bouton</span><br />
         <span>"Sauvgarder cette adresse"</span>
         <!-- Address form -->
         <h3>Address de livraison</h3>
 
         @using (Html.BeginForm("Order", "Cart", FormMethod.Post))
         {
-            <!-- full-name input-->
+            <!-- number input-->
             <div class="form-group">
                 <label class="control-label">Numéro</label>
                 <div class="controls">
@@ -20,7 +22,7 @@
                     @Html.ValidationMessageFor(model => model.city)
                 </div>
             </div>
-            <!-- address-line1 input-->
+            <!-- title input-->
             <div class="form-group">
                 <label class="control-label">Libellé de la voie 1</label>
                 <div class="controls">
@@ -36,7 +38,7 @@
                     @Html.ValidationMessageFor(model => model.city)
                 </div>
             </div>
-            <!-- postal-code input-->
+            <!-- postalcode input-->
             <div class="form-group">
                 <label class="control-label">Code Postal</label>
                 <div class="controls">
@@ -71,7 +73,7 @@
             </div>
             <br />
             <div class="form-group">
-                <input type="submit" name="save" class="btnSubmit" value="Sauvgarder cette adresse" /><br/><br/>
+                <input type="submit" name="save" class="btnSubmit" value="Sauvgarder cette adresse" /><br /><br />
                 <input type="submit" name="send" class="btnSubmit" value="Envoyer à cette adresse" />
             </div>
         }
