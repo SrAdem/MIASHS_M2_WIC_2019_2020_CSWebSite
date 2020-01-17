@@ -6,14 +6,21 @@
 
 <div>
     <h2 class="text-center">@Html.DisplayFor(model => model.name)</h2>
+    @if (Session["superUser"] != null && (bool)Session["superUser"] == true)
+    {
+        <span>
+            @Html.ActionLink("Supprimer", "Delete", new { id = Model.id_item }) |
+            @Html.ActionLink("Editer", "Edit", new { id = Model.id_item }) |
+        </span>
+    }
     <br/>
     <div class="container">
         <div class="row justify-content-md-center">
-            <div class="col-sm-9" style="border:solid;">
+            <div class="col-sm-9">
                 <hr />
                 <div class="container">
                     <div class="row justify-content-md-center text-center">
-                        <div class="col-sm-6" style="border-right: 2px solid black" >
+                        <div class="col-sm-6" style="border-right: 2px solid gray" >
                             @Model.name
                         </div>
                         <div class="col-sm-3">
@@ -27,12 +34,19 @@
                 </div>
             </div>
 
-            <div class="col-sm-3 text-center" style="border:solid;">
-                <img src="~/Content/Images/@Model.picture" width="60" style="margin: 10px 0px 10px 0px"/>
+            <div class="col-sm-3 text-center">
+                <img src="~/Content/Images/@Model.picture" width="60" style="margin: 10px 0px 10px 0px" />
                 <br />
                 @if (Model.available)
                 {
-                    <a href="@Url.Action("Buy", "Cart", new { id = Model.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                    if (Session["userName"] != null)
+                    {
+                        <a href="@Url.Action("Buy", "Cart", new { id = Model.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Connection", "Users", new { itemID = Model.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
+                    }
                 }
                 else
                 {

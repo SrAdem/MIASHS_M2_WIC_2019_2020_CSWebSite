@@ -55,55 +55,124 @@
         @Html.ActionLink("Ajouter un nouvel objet", "Create")
     </p>
 }
-<table class="table">
-    @foreach (Item item in Model.Item)
-    {
-        <tr onclick="itemDetails(@item.id_item)">
-            <td>
-                @Html.DisplayFor(modelItem => item.id_item)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.available)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                <img src="~/Content/Images/@item.picture" width="60" />
-            </td>
-            <td>
 
-                @if (superUser == true)
-                {
-                    <span>
-                        @Html.ActionLink("Supprimer", "Delete", new { id = item.id_item }) |
-                        @Html.ActionLink("Editer", "Edit", new { id = item.id_item }) |
-                    </span>
-                }
-                @Html.ActionLink("Détailles", "Details", new { id = item.id_item }) |
 
-                @if (item.available)
-                {
-                    if (Session["userName"] != null)
-                    {
-                        <a href="@Url.Action("Buy", "Cart", new { id = item.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
-                    }
-                    else
-                    {
-                        <a href="@Url.Action("Connection", "Users", new { itemID = item.id_item })"><span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier </a>
-                    }
-                }
-                else
-                {
-                    <span style="color:red">Ce produit est en rupture de stock</span>
-                }
-            </td>
-        </tr>
+<style>
+
+    Edit in JSFiddle
+
+    Result
+    HTML
+    CSS
+    JavaScript
+    Resources
+
+    section.pricing {
+        background: #007bff;
+        background: linear-gradient(to right, #0062E6, #33AEFF);
     }
-</table>
+
+    .pricing .card {
+        border: none;
+        border-radius: 1rem;
+        transition: all 0.2s;
+        box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .pricing hr {
+        margin: 1.5rem 0;
+    }
+
+    .pricing .card-title {
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+        letter-spacing: .1rem;
+        font-weight: bold;
+    }
+
+    .pricing .card-price {
+        font-size: 3rem;
+        margin: 0;
+    }
+
+        .pricing .card-price .period {
+            font-size: 0.8rem;
+        }
+
+    .pricing ul li {
+        margin-bottom: 1rem;
+    }
+
+    .pricing .btn {
+        font-size: 80%;
+        border-radius: 5rem;
+        letter-spacing: .1rem;
+        font-weight: bold;
+        padding: 1rem;
+        opacity: 0.7;
+        transition: all 0.2s;
+        width:90%;
+    }
+
+    h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    width: 100%;
+}
+</style>
+
+@{ int maxDescriptionLength = 100;
+    int maxTitleLenght = 20;}
+<section class="pricing py-5">
+    <div class="container">
+        <div class="row">
+            <!-- This snippet uses Font Awesome 5 Free as a dependency. You can download it at fontawesome.io! -->
+            @foreach (Item item in Model.Item)
+            {
+                String description = item.description.Length <= maxDescriptionLength ? item.description : item.description.Substring(0, maxDescriptionLength) + " ...";
+                String itemTitle = item.name.Length <= maxTitleLenght ? item.name : item.name.Substring(0, maxTitleLenght) + " ...";
+                String url;
+                String color;
+                String title;
+                <!-- Free Tier -->
+                <div class="col-lg-3 " style="margin-top:20px;">
+                    <div class="card mb-5 mb-lg-0" style="height:400px">
+                        <div class="card-body text-center">
+                            <h4 style="padding-top:10px">@itemTitle</h4>
+                            
+                            @if (item.available)
+                            {
+                                color = "btn-primary";
+                                title = "";
+                                if (Session["userName"] != null)
+                                {
+                                    url = Url.Action("Buy", "Cart", new { id = item.id_item });
+                                }
+                                else
+                                {
+                                    url = Url.Action("Connection", "Users", new { itemID = item.id_item });
+                                }
+                            }
+                            else
+                            {
+                                title = "rupture de stock";
+                                color = "btn-muted";
+                                url = "#";
+                            }
+                            <a class="btn-block @color" style="border:1px solid;" href=@url title='@title'>
+                                <span class="badge" style="padding:8px; border-radius:25px; font-size:20px; position:absolute; top:0px; right:0px; border:1px solid">
+                                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                                </span>
+                            </a>
+                            <hr>
+                            <img src="~/Content/Images/@item.picture" style="height:20vh;" />
+                            <p style="height:8vh; margin-top:10px">@description</p>
+                            <a href="@Url.Action("Details", new { id = item.id_item })" class="btn btn-block btn-primary text-uppercase" style="margin:auto">Detail</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

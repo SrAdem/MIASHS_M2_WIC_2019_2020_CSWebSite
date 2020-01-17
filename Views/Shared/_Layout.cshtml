@@ -33,7 +33,7 @@
                 <ul class="nav navbar-nav" style="float:right">
                     <li>
                         <a>
-                            <form asp-controller="Home" asp-action="Searche" method="get">
+                            <form method="post" action="@Url.Action("Index", "Home")">
                                 <input type="text" name="search" placeholder="Que cherchez-vous ?" style="display:none" id="searchBar">
                             </form>
                         </a>

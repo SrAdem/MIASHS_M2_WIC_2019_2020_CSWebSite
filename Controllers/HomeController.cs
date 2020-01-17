@@ -29,7 +29,7 @@ namespace BazarDeLaHess.Controllers
                 if(items != null)
                 {
                     hv.Item = items.ToList();
-                    return View(hv);
+                    return View("Index",hv);
                 }
             }
             hv.Item = _db.Item.ToList();
@@ -157,7 +157,7 @@ namespace BazarDeLaHess.Controllers
                 return HttpNotFound();
             }
 
-            return View();
+            return View(item);
         }
 
         // POST: Home/Delete/5
@@ -168,7 +168,7 @@ namespace BazarDeLaHess.Controllers
             {
                 // TODO: Add delete logic here
                 Item itemToEdit = _db.Item.Find(id);
-                _db.Entry(itemToEdit).State = EntityState.Modified;
+                _db.Item.Remove(itemToEdit);
                 _db.SaveChanges();
 
                 return RedirectToAction("Index");
